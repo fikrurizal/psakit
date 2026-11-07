@@ -1,0 +1,2471 @@
+{
+  "functions": [
+    {
+      "id": "ERBERNOULLI",
+      "name": "ERBERNOULLI",
+      "description": "Random draw from a Bernoulli distribution: 1 with probability p, else 0.",
+      "parameters": [
+        {
+          "name": "p",
+          "description": "p",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERBETA",
+      "name": "ERBETA",
+      "description": "Random draw from a Beta distribution on 0..1.",
+      "parameters": [
+        {
+          "name": "alpha1",
+          "description": "alpha1",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "alpha2",
+          "description": "alpha2",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERBETA4",
+      "name": "ERBETA4",
+      "description": "Random draw from a Beta distribution rescaled to min..max.",
+      "parameters": [
+        {
+          "name": "alpha1",
+          "description": "alpha1",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "alpha2",
+          "description": "alpha2",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "min",
+          "description": "min",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "max",
+          "description": "max",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERBINOMIAL",
+      "name": "ERBINOMIAL",
+      "description": "Random draw from a Binomial distribution.",
+      "parameters": [
+        {
+          "name": "N",
+          "description": "N",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "p",
+          "description": "p",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERCHI2",
+      "name": "ERCHI2",
+      "description": "Random draw from a Chi-square distribution with k degrees of freedom.",
+      "parameters": [
+        {
+          "name": "k",
+          "description": "k",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERDELAPORTE",
+      "name": "ERDELAPORTE",
+      "description": "Random draw from a Delaporte distribution: Poisson(Gamma(alpha,beta)) + Poisson(gamma).",
+      "parameters": [
+        {
+          "name": "alpha",
+          "description": "alpha",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "beta",
+          "description": "beta",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "gamma",
+          "description": "gamma",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERDICE",
+      "name": "ERDICE",
+      "description": "Random whole number from 1 to sides, inclusive.",
+      "parameters": [
+        {
+          "name": "sides",
+          "description": "sides",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERERLANG",
+      "name": "ERERLANG",
+      "description": "Random draw from an Erlang distribution.",
+      "parameters": [
+        {
+          "name": "m",
+          "description": "m",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "beta",
+          "description": "beta",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "EREXPONENTIAL",
+      "name": "EREXPONENTIAL",
+      "description": "Random draw from an Exponential distribution with mean beta.",
+      "parameters": [
+        {
+          "name": "beta",
+          "description": "beta",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERGAMMA",
+      "name": "ERGAMMA",
+      "description": "Random draw from a Gamma distribution with shape alpha and scale beta.",
+      "parameters": [
+        {
+          "name": "alpha",
+          "description": "alpha",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "beta",
+          "description": "beta",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERGEOMETRIC",
+      "name": "ERGEOMETRIC",
+      "description": "Random draw from a Geometric distribution, counted from 0.",
+      "parameters": [
+        {
+          "name": "p",
+          "description": "p",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERHYPERGEOMETRIC",
+      "name": "ERHYPERGEOMETRIC",
+      "description": "Random draw from a Hypergeometric distribution.",
+      "parameters": [
+        {
+          "name": "n",
+          "description": "n",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "D",
+          "description": "D",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "M",
+          "description": "M",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERINVERSEGAUSSIAN",
+      "name": "ERINVERSEGAUSSIAN",
+      "description": "Random draw from an Inverse Gaussian distribution.",
+      "parameters": [
+        {
+          "name": "mu",
+          "description": "mu",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "lambda",
+          "description": "lambda",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERLOGISTIC",
+      "name": "ERLOGISTIC",
+      "description": "Random draw from a Logistic distribution.",
+      "parameters": [
+        {
+          "name": "mu",
+          "description": "mu",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "s",
+          "description": "s",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERLOGLOGISTIC",
+      "name": "ERLOGLOGISTIC",
+      "description": "Random draw from a Log-logistic distribution.",
+      "parameters": [
+        {
+          "name": "alpha",
+          "description": "alpha",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "beta",
+          "description": "beta",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERLOGNORMAL",
+      "name": "ERLOGNORMAL",
+      "description": "Random draw from a Lognormal distribution, given its own mean and SD.",
+      "parameters": [
+        {
+          "name": "mean",
+          "description": "mean",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "std",
+          "description": "std",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERLOGNORMAL2",
+      "name": "ERLOGNORMAL2",
+      "description": "Random draw from a Lognormal distribution, given mu and sigma of the log.",
+      "parameters": [
+        {
+          "name": "mu",
+          "description": "mu",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "sigma",
+          "description": "sigma",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERNEGBINOMIAL",
+      "name": "ERNEGBINOMIAL",
+      "description": "Random draw from a Negative binomial distribution.",
+      "parameters": [
+        {
+          "name": "s",
+          "description": "s",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "p",
+          "description": "p",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERNORMAL",
+      "name": "ERNORMAL",
+      "description": "Random draw from a Normal distribution.",
+      "parameters": [
+        {
+          "name": "mu",
+          "description": "mu",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "sigma",
+          "description": "sigma",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERPARETO",
+      "name": "ERPARETO",
+      "description": "Random draw from a Pareto distribution.",
+      "parameters": [
+        {
+          "name": "a",
+          "description": "a",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "b",
+          "description": "b",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERPEARSON5",
+      "name": "ERPEARSON5",
+      "description": "Random draw from a Pearson V distribution.",
+      "parameters": [
+        {
+          "name": "alpha",
+          "description": "alpha",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "beta",
+          "description": "beta",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERPEARSON6",
+      "name": "ERPEARSON6",
+      "description": "Random draw from a Pearson VI distribution.",
+      "parameters": [
+        {
+          "name": "alpha1",
+          "description": "alpha1",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "alpha2",
+          "description": "alpha2",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "beta",
+          "description": "beta",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERPERT",
+      "name": "ERPERT",
+      "description": "Random draw from a Beta-Pert distribution with minimum a, mode m and maximum b.",
+      "parameters": [
+        {
+          "name": "a",
+          "description": "a",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "m",
+          "description": "m",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "b",
+          "description": "b",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERPOISSON",
+      "name": "ERPOISSON",
+      "description": "Random draw from a Poisson distribution.",
+      "parameters": [
+        {
+          "name": "nu",
+          "description": "nu",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERPOLYA",
+      "name": "ERPOLYA",
+      "description": "Random draw from a Polya distribution: Poisson(Gamma(alpha,beta)).",
+      "parameters": [
+        {
+          "name": "alpha",
+          "description": "alpha",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "beta",
+          "description": "beta",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERRAYLEIGH",
+      "name": "ERRAYLEIGH",
+      "description": "Random draw from a Rayleigh distribution.",
+      "parameters": [
+        {
+          "name": "sigma",
+          "description": "sigma",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERRELATIVERISK",
+      "name": "ERRELATIVERISK",
+      "description": "Random relative risk with lognormal spread, corrected so its mean equals RR.",
+      "parameters": [
+        {
+          "name": "RR",
+          "description": "RR",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "SElnRR",
+          "description": "SElnRR",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERSTUDENTST",
+      "name": "ERSTUDENTST",
+      "description": "Random draw from Student's t distribution.",
+      "parameters": [
+        {
+          "name": "a",
+          "description": "a",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERTRIANGLE",
+      "name": "ERTRIANGLE",
+      "description": "Random draw from a Triangular distribution.",
+      "parameters": [
+        {
+          "name": "min",
+          "description": "min",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "most",
+          "description": "most",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "max",
+          "description": "max",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERUNIFORM01",
+      "name": "ERUNIFORM01",
+      "description": "Random draw uniform between 0 and 1, exclusive.",
+      "parameters": [],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERUNIFORM",
+      "name": "ERUNIFORM",
+      "description": "Random draw uniform between min and max, exclusive.",
+      "parameters": [
+        {
+          "name": "min",
+          "description": "min",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "max",
+          "description": "max",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERWEIBULL",
+      "name": "ERWEIBULL",
+      "description": "Random draw from a Weibull distribution. alpha is scale and beta is shape, the reverse of Excel.",
+      "parameters": [
+        {
+          "name": "alpha",
+          "description": "alpha",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "beta",
+          "description": "beta",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "EREMPIRICAL",
+      "name": "EREMPIRICAL",
+      "description": "Random draw from a distribution you define with x values and weights p.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "x",
+          "description": "x",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "p",
+          "description": "p",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "discrete",
+          "description": "discrete",
+          "type": "boolean",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERSURVIVAL",
+      "name": "ERSURVIVAL",
+      "description": "Random remaining survival time from conditional failure probabilities, given survival to time ct.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "x",
+          "description": "x",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "p",
+          "description": "p",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "ct",
+          "description": "ct",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERSURVIVAL2",
+      "name": "ERSURVIVAL2",
+      "description": "As ErSurvival, using your own uniform draw rnd, so two arms can share one draw.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "x",
+          "description": "x",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "p",
+          "description": "p",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "ct",
+          "description": "ct",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "rnd",
+          "description": "rnd",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERNONPARAM",
+      "name": "ERNONPARAM",
+      "description": "Master for non-parametric bootstrapping. Returns its name.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "recnum",
+          "description": "recnum",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "fieldnum",
+          "description": "fieldnum",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "string",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERNONPARAMCOM",
+      "name": "ERNONPARAMCOM",
+      "description": "Bootstrapped value for one record and field. Link name to the ErNonparam cell.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "rec",
+          "description": "rec",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "field",
+          "description": "field",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "val",
+          "description": "val",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERRANDOMISE",
+      "name": "ERRANDOMISE",
+      "description": "Master for a randomisation test. Returns its name.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "recnum",
+          "description": "recnum",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "fieldnum",
+          "description": "fieldnum",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "string",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERRANDOMISECOM",
+      "name": "ERRANDOMISECOM",
+      "description": "Reshuffled value for one record and field. Link name to the ErRandomise cell.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "rec",
+          "description": "rec",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "field",
+          "description": "field",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "val",
+          "description": "val",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERMULTINOMIAL",
+      "name": "ERMULTINOMIAL",
+      "description": "Master for a Multinomial distribution. Returns its name.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "catnum",
+          "description": "catnum",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "N",
+          "description": "N",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "string",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERMULTINOMIALCOM",
+      "name": "ERMULTINOMIALCOM",
+      "description": "Multinomial draw for one category. Draws across categories sum to N.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "cat",
+          "description": "cat",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "cases",
+          "description": "cases",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERDIRICHLET",
+      "name": "ERDIRICHLET",
+      "description": "Master for a Dirichlet distribution. Returns its name.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "catnum",
+          "description": "catnum",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "N",
+          "description": "N",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "string",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERDIRICHLETCOM",
+      "name": "ERDIRICHLETCOM",
+      "description": "Dirichlet draw for one category. Draws across categories sum to 1.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "cat",
+          "description": "cat",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "cases",
+          "description": "cases",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERCORRNORMAL",
+      "name": "ERCORRNORMAL",
+      "description": "Master for correlated Normals. C is a lower-triangle correlation or covariance matrix.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "C",
+          "description": "C",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "n",
+          "description": "n",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "corm",
+          "description": "corm",
+          "type": "boolean",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "string",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERCORRNORMALCOM",
+      "name": "ERCORRNORMALCOM",
+      "description": "One correlated Normal draw. Link name to the ErCorrNormal cell.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "num",
+          "description": "num",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "mu",
+          "description": "mu",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "sig",
+          "description": "sig",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERRANKCORR",
+      "name": "ERRANKCORR",
+      "description": "Master for rank-correlated distributions. C is a lower-triangle correlation matrix.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "C",
+          "description": "C",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "n",
+          "description": "n",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "string",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERRANKCORRCOM",
+      "name": "ERRANKCORRCOM",
+      "description": "One rank-correlated draw. func must be an Ersatz random function embedded directly in this formula.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "num",
+          "description": "num",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "func",
+          "description": "func",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERDIRICHLETCORR",
+      "name": "ERDIRICHLETCORR",
+      "description": "Master for correlated Dirichlet distributions.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "C",
+          "description": "C",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "n",
+          "description": "n",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "string",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERDIRICHLETCORRIN",
+      "name": "ERDIRICHLETCORRIN",
+      "description": "Parameters of correlated Dirichlet distribution num.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "inp",
+          "description": "inp",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "num",
+          "description": "num",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "string",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERDIRICHLETCORROUT",
+      "name": "ERDIRICHLETCORROUT",
+      "description": "Draws for correlated Dirichlet distribution num. Spills across its categories.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "num",
+          "description": "num",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "any",
+        "dimensionality": "matrix"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERMULTINOMIALCORR",
+      "name": "ERMULTINOMIALCORR",
+      "description": "Master for correlated Multinomial distributions.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "C",
+          "description": "C",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "n",
+          "description": "n",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "string",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERMULTINOMIALCORRIN",
+      "name": "ERMULTINOMIALCORRIN",
+      "description": "Parameters of correlated Multinomial distribution num.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "inp",
+          "description": "inp",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "num",
+          "description": "num",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "string",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERMULTINOMIALCORROUT",
+      "name": "ERMULTINOMIALCORROUT",
+      "description": "Draws for correlated Multinomial distribution num. Spills across its categories.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "num",
+          "description": "num",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "any",
+        "dimensionality": "matrix"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "EROUTPUT",
+      "name": "EROUTPUT",
+      "description": "Records value on each iteration and reports it in the results. Returns value.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "value",
+          "description": "value",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERRUNOUTPUT",
+      "name": "ERRUNOUTPUT",
+      "description": "Records value once at the end of each run. Returns value.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "value",
+          "description": "value",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERSENSINPUT",
+      "name": "ERSENSINPUT",
+      "description": "Names an input for sensitivity analysis. Returns value.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "value",
+          "description": "value",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERRUNSENSINPUT",
+      "name": "ERRUNSENSINPUT",
+      "description": "Names an input for sensitivity analysis across runs. Returns value.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "value",
+          "description": "value",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERDATA",
+      "name": "ERDATA",
+      "description": "After the run, returns the value inp had on iteration itnum. Returns 0 during the run.",
+      "parameters": [
+        {
+          "name": "inp",
+          "description": "inp",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "itnum",
+          "description": "itnum",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERDATAARRAY",
+      "name": "ERDATAARRAY",
+      "description": "After the run, spills innum from every iteration down a column.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "innum",
+          "description": "innum",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "any",
+        "dimensionality": "matrix"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERRUNDATAARRAY",
+      "name": "ERRUNDATAARRAY",
+      "description": "After all runs, spills value from the end of every run down a column.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "value",
+          "description": "value",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "any",
+        "dimensionality": "matrix"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERMINIMIZE",
+      "name": "ERMINIMIZE",
+      "description": "Parameters being optimised, starting from range ir. Spills to the same shape as ir.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "ir",
+          "description": "ir",
+          "type": "any",
+          "dimensionality": "matrix"
+        }
+      ],
+      "result": {
+        "type": "any",
+        "dimensionality": "matrix"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERMINIMIZERESULT",
+      "name": "ERMINIMIZERESULT",
+      "description": "Loss value the optimiser minimises. Must share its name with ErMinimize.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "lf",
+          "description": "lf",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERONEOFFCOSTDISC",
+      "name": "ERONEOFFCOSTDISC",
+      "description": "Cost co at time cy, discounted to base year by at fractional rate r.",
+      "parameters": [
+        {
+          "name": "by",
+          "description": "by",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "cy",
+          "description": "cy",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "co",
+          "description": "co",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "r",
+          "description": "r",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERANNUALCOSTDISC",
+      "name": "ERANNUALCOSTDISC",
+      "description": "Annual cost co from sy to ly, discounted to base year by at fractional rate r.",
+      "parameters": [
+        {
+          "name": "by",
+          "description": "by",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "sy",
+          "description": "sy",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "ly",
+          "description": "ly",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "co",
+          "description": "co",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "r",
+          "description": "r",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERLYDISC",
+      "name": "ERLYDISC",
+      "description": "Life years from sy to ly, discounted to base year by at fractional rate r.",
+      "parameters": [
+        {
+          "name": "by",
+          "description": "by",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "sy",
+          "description": "sy",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "ly",
+          "description": "ly",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "r",
+          "description": "r",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERHALYDISC",
+      "name": "ERHALYDISC",
+      "description": "Health-adjusted life years from sy to ly, using weights ha by single year of age ag.",
+      "parameters": [
+        {
+          "name": "by",
+          "description": "by",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "sy",
+          "description": "sy",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "ly",
+          "description": "ly",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "r",
+          "description": "r",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "ag",
+          "description": "ag",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "ha",
+          "description": "ha",
+          "type": "any",
+          "dimensionality": "matrix"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERFIXED",
+      "name": "ERFIXED",
+      "description": "Returns element num of range x, wrapping around past the end.",
+      "parameters": [
+        {
+          "name": "x",
+          "description": "x",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "num",
+          "description": "num",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERCONDITIONAL",
+      "name": "ERCONDITIONAL",
+      "description": "Returns value when con is TRUE. Otherwise holds the previous result.",
+      "parameters": [
+        {
+          "name": "con",
+          "description": "con",
+          "type": "boolean",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "value",
+          "description": "value",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERTRUNCATE",
+      "name": "ERTRUNCATE",
+      "description": "Resamples an embedded random function until it falls between min and max.",
+      "parameters": [
+        {
+          "name": "min",
+          "description": "min",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "max",
+          "description": "max",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "func",
+          "description": "func",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERITERATION",
+      "name": "ERITERATION",
+      "description": "Number of the current iteration.",
+      "parameters": [],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERSETITNO",
+      "name": "ERSETITNO",
+      "description": "Sets the number of iterations from the worksheet.",
+      "parameters": [
+        {
+          "name": "num",
+          "description": "num",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERRUNNO",
+      "name": "ERRUNNO",
+      "description": "Number of the current run.",
+      "parameters": [],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERRUNNING",
+      "name": "ERRUNNING",
+      "description": "TRUE while a simulation is running.",
+      "parameters": [],
+      "result": {
+        "type": "boolean",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERVERSION",
+      "name": "ERVERSION",
+      "description": "Version of this add-in.",
+      "parameters": [],
+      "result": {
+        "type": "string",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERSTORE",
+      "name": "ERSTORE",
+      "description": "Stores a number for the next iteration. Returns name.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "inp",
+          "description": "inp",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "string",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERRETRIEVE",
+      "name": "ERRETRIEVE",
+      "description": "Number stored by ErStore on the previous iteration. 0 on the first.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERSTOREARRAY",
+      "name": "ERSTOREARRAY",
+      "description": "Stores a range for the next iteration. Returns name.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "inarray",
+          "description": "inarray",
+          "type": "any",
+          "dimensionality": "matrix"
+        }
+      ],
+      "result": {
+        "type": "string",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERRETRIEVEARRAY",
+      "name": "ERRETRIEVEARRAY",
+      "description": "Range stored by ErStoreArray on the previous iteration.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "any",
+        "dimensionality": "matrix"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERCONDSTOREARRAY",
+      "name": "ERCONDSTOREARRAY",
+      "description": "Stores a range when condition is TRUE. mode 0 replaces, 1 multiplies, 2 adds.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "condition",
+          "description": "condition",
+          "type": "boolean",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "inarray",
+          "description": "inarray",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "mode",
+          "description": "mode",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "string",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERCONDRETRIEVEARRAY",
+      "name": "ERCONDRETRIEVEARRAY",
+      "description": "Range stored by ErCondStoreArray, updated when condition is TRUE.",
+      "parameters": [
+        {
+          "name": "name",
+          "description": "name",
+          "type": "string",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "condition",
+          "description": "condition",
+          "type": "boolean",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "any",
+        "dimensionality": "matrix"
+      },
+      "options": {
+        "requiresAddress": true,
+        "volatile": true
+      }
+    },
+    {
+      "id": "ERSORTEDARRAY",
+      "name": "ERSORTEDARRAY",
+      "description": "Sorts a range. mode 1 is ascending, anything else descending.",
+      "parameters": [
+        {
+          "name": "inarray",
+          "description": "inarray",
+          "type": "any",
+          "dimensionality": "matrix"
+        },
+        {
+          "name": "mode",
+          "description": "mode",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "any",
+        "dimensionality": "matrix"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERMEAN",
+      "name": "ERMEAN",
+      "description": "At the end of a run, the mean of inp across its iterations.",
+      "parameters": [
+        {
+          "name": "inp",
+          "description": "inp",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERSTDEV",
+      "name": "ERSTDEV",
+      "description": "At the end of a run, the standard deviation of inp across its iterations.",
+      "parameters": [
+        {
+          "name": "inp",
+          "description": "inp",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERMIN",
+      "name": "ERMIN",
+      "description": "At the end of a run, the lowest value of inp across its iterations.",
+      "parameters": [
+        {
+          "name": "inp",
+          "description": "inp",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERMAX",
+      "name": "ERMAX",
+      "description": "At the end of a run, the highest value of inp across its iterations.",
+      "parameters": [
+        {
+          "name": "inp",
+          "description": "inp",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERTOTAL",
+      "name": "ERTOTAL",
+      "description": "At the end of a run, the sum of inp across its iterations.",
+      "parameters": [
+        {
+          "name": "inp",
+          "description": "inp",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERCORRELATION",
+      "name": "ERCORRELATION",
+      "description": "At the end of a run, the Pearson correlation of X and Y across its iterations.",
+      "parameters": [
+        {
+          "name": "X",
+          "description": "X",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "Y",
+          "description": "Y",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    },
+    {
+      "id": "ERPERCENTILE",
+      "name": "ERPERCENTILE",
+      "description": "At the end of a run, percentile perc (0 to 100) of inp across its iterations.",
+      "parameters": [
+        {
+          "name": "inp",
+          "description": "inp",
+          "type": "number",
+          "dimensionality": "scalar"
+        },
+        {
+          "name": "perc",
+          "description": "perc",
+          "type": "number",
+          "dimensionality": "scalar"
+        }
+      ],
+      "result": {
+        "type": "number",
+        "dimensionality": "scalar"
+      },
+      "options": {
+        "requiresAddress": true
+      }
+    }
+  ]
+}

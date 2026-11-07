@@ -1,0 +1,18 @@
+<div class="runbar">
+    <div class="row">
+      <label class="field"><span>Iterations</span><input type="number" id="iterations" min="1" step="100"></label>
+      <label class="field" id="runsField" hidden><span>Runs</span><input type="number" id="runs" min="1"></label>
+      <button class="btn primary" id="run">Run simulation</button>
+    </div>
+    <div class="status" id="status" role="status"></div>
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+  </div>
+  <div class="alert" id="alert" role="alert" hidden></div>
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button role="tab" data-tab="results">Results</button>
+    <button role="tab" data-tab="sens">Sensitivity</button>
+    <button role="tab" data-tab="model">Model</button>
+    <button role="tab" data-tab="optim">Optimise</button>
+    <button role="tab" data-tab="tools">Tools</button>
+  </nav>
+  <main id="main"></main>

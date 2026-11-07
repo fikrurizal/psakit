@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Surrogate</title>
+<link rel="stylesheet" href="taskpane.css">
+<script src="https://appsforoffice.microsoft.com/lib/1/hosted/office.js"></script>
+<script src="../engine/rng.js"></script>
+<script src="../engine/dists.js"></script>
+<script src="../engine/stats.js"></script>
+<script src="../engine/optimize.js"></script>
+<script src="../engine/spec.js"></script>
+<script src="../engine/migrate.js"></script>
+<script src="../engine/formula.js"></script>
+<script src="../engine/xlruntime.js"></script>
+<script src="../engine/compiler.js"></script>
+<script src="../engine/engine.js"></script>
+<script src="../engine/runner.js"></script>
+<script src="../engine/pool.js"></script>
+<script src="../engine/example.js"></script>
+<script src="../functions/functions.js"></script>
+<script src="../host/excel-host.js"></script>
+<script src="charts.js"></script>
+<script src="report.js"></script>
+</head>
+<body>
+  <div class="runbar">
+    <div class="row">
+      <label class="field"><span>Iterations</span><input type="number" id="iterations" min="1" step="100"></label>
+      <label class="field" id="runsField" hidden><span>Runs</span><input type="number" id="runs" min="1"></label>
+      <button class="btn primary" id="run">Run simulation</button>
+    </div>
+    <div class="status" id="status" role="status"></div>
+    <div class="progress" aria-hidden="true"><i id="bar"></i></div>
+  </div>
+  <div class="alert" id="alert" role="alert" hidden></div>
+  <nav class="tabs" role="tablist" aria-label="Sections">
+    <button role="tab" data-tab="results">Results</button>
+    <button role="tab" data-tab="sens">Sensitivity</button>
+    <button role="tab" data-tab="model">Model</button>
+    <button role="tab" data-tab="optim">Optimise</button>
+    <button role="tab" data-tab="tools">Tools</button>
+  </nav>
+  <main id="main"></main>
+<script src="taskpane.js"></script>
+</body>
+</html>

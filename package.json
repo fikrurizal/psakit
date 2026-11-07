@@ -1,0 +1,14 @@
+{
+  "name": "surrogate-excel-addin",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Monte Carlo simulation add-in for Excel. A clean-room reimplementation of the Ersatz function set.",
+  "scripts": {
+    "build": "node tools/gen-metadata.js",
+    "test": "SG_SPEED=excel node --test tests/simulation.test.js && node --test tests/*.test.js",
+    "certs": "npx office-addin-dev-certs install",
+    "start": "node tools/serve.js",
+    "set-host": "node tools/set-host.js",
+    "installer": "node tools/build-installer.js"
+  }
+}
