@@ -1,0 +1,2 @@
+# Store installers byte for byte: users download them from GitHub Pages and cmd needs CRLF.
+*.cmd -text
