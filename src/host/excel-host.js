@@ -3,7 +3,7 @@
  
   const SHEET_RE = /'/g;
   const colName = (n) => { let s = ''; n += 1; while (n > 0) { const r = (n - 1) % 26; s = String.fromCharCode(65 + r) + s; n = (n - r - 1) / 26; } return s; };
-  const SETTINGS_KEY = 'surrogateSettings';
+  const SETTINGS_KEY = 'psakitSettings';
 
   class ExcelHost {
     constructor() { this.hideScreen = true; this.savedMode = null; this.label = 'Excel'; }
@@ -145,7 +145,7 @@
         if (!Office.context.requirements.isSetSupported('DialogApi', '1.2')) { reject(new Error('This version of Excel can\'t send updates to a separate window. Save an HTML report instead.')); return; }
         const url = new URL('dashboard.html', window.location.href).href;
         Office.context.ui.displayDialogAsync(url, { height: 85, width: 70, displayInIframe: false }, (r) => {
-          if (r.status !== Office.AsyncResultStatus.Succeeded) { reject(new Error(r.error && r.error.code === 12007 ? 'A Surrogate window is already open.' : `Excel could not open the window: ${r.error && r.error.message}`)); return; }
+          if (r.status !== Office.AsyncResultStatus.Succeeded) { reject(new Error(r.error && r.error.code === 12007 ? 'A PSAkit window is already open.' : `Excel could not open the window: ${r.error && r.error.message}`)); return; }
           const dialog = r.value;
           dialog.addEventHandler(Office.EventType.DialogMessageReceived, (ev) => { try { handlers.onMessage(JSON.parse(ev.message)); } catch (e) { /* not ours */ } });
           dialog.addEventHandler(Office.EventType.DialogEventReceived, (ev) => handlers.onClosed(ev && ev.error));
@@ -167,7 +167,7 @@
       await new Promise((resolve) => s.saveAsync(() => resolve()));
     }
     async loadSettings() {
-      const v = Office.context.document.settings.get(SETTINGS_KEY);
+      const s = Office.context.document.settings, v = s.get(SETTINGS_KEY) || s.get('surrogateSettings'); // older workbooks
       return v || null;
     }
   }

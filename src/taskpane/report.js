@@ -176,7 +176,7 @@
       <tr><td>Iterations per run</td><td>${Number(m.N).toLocaleString()}</td></tr><tr><td>Runs</td><td>${Number(m.R).toLocaleString()}</td></tr>
       <tr><td>Random generator</td><td>${esc(m.rng)}</td></tr><tr><td>Seed</td><td>${esc(m.seed)}</td></tr></tbody></table>
       <p class="rp-note">${esc(m.note)}</p>
-      <p class="rp-note">Calculated with Surrogate ${esc(m.version)}, an independent reimplementation of the Ersatz function set. It is not affiliated with or endorsed by EpiGear.</p></section>`;
+      <p class="rp-note">Calculated with PSAkit ${esc(m.version)}, which implements the Ersatz function set from its public documentation. PSAkit is not affiliated with or endorsed by EpiGear.</p></section>`;
     root.innerHTML = h;
     draws.forEach((d) => d());
   };

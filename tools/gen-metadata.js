@@ -7,7 +7,7 @@ const functions = Sg.SPEC.map((f) => {
   if (f.random || f.volatile) options.volatile = true;
   const result = f.result === 'm' ? { type: 'any', dimensionality: 'matrix' } : { type: f.result === 'n' ? 'number' : f.result === 's' ? 'string' : 'boolean', dimensionality: 'scalar' };
   return {
-    id: f.name.toUpperCase(), name: f.name.toUpperCase(), description: f.desc,
+    id: Sg.excelName(f.name), name: Sg.excelName(f.name), description: f.desc,
     parameters: f.params.map((p) => {
       const [name, code] = p.split(':');
       return { name, description: name, type: TYPE[code], dimensionality: code === 'm' ? 'matrix' : 'scalar' };

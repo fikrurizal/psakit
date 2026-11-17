@@ -41,7 +41,7 @@ const demoCss = `
 .demo-sheet { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 #toCsv, #rpSave, #rpCopy { display: none; }
 `;
-const inner = `<title>Surrogate Demo</title><meta name="claude:viewport-fit-sides" content="cover"><style>${r('src/taskpane/taskpane.css')}${demoCss}</style>
+const inner = `<title>PSAkit Demo</title><meta name="claude:viewport-fit-sides" content="cover"><style>${r('src/taskpane/taskpane.css')}${demoCss}</style>
 <div class="demo-shell"><div class="demo-pane">
 ${r('tools/pane-body.html')}
 </div><section class="demo-sheet">

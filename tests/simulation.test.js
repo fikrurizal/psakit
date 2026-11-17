@@ -18,7 +18,7 @@ const near = (a, b, tol, msg) => assert.ok(Math.abs(a - b) <= tol, `${msg || ''}
 const out = (res, name) => res.outputs.find((o) => o.name === name).values;
 
 test('basic model: outputs recorded, summary right, sheet returns to means afterwards', async () => {
-  const { X, R } = setup({ A1: '=ER.ERNORMAL(10,2)', A2: '=ER.ERGAMMA(3,1.5)', B1: '=ER.EROUTPUT("sum",A1+A2)' });
+  const { X, R } = setup({ A1: '=PSA.NORMAL(10,2)', A2: '=PSA.GAMMA(3,1.5)', B1: '=PSA.OUTPUT("sum",A1+A2)' });
   const res = await R.simulate({ iterations: 5000 });
   const s = stats.summary(out(res, 'sum'), 95);
   near(s.mean, 14.5, 0.15); near(s.sd, Math.sqrt(4 + 6.75), 0.2);
@@ -29,7 +29,7 @@ test('basic model: outputs recorded, summary right, sheet returns to means after
   assert.strictEqual(X.display('S!A1'), 10, 'shows the mean when idle');
 });
 test('same seed gives identical results whatever order Excel calculates in', async () => {
-  const cells = { A1: '=ER.ERNORMAL(0,1)', A2: '=ER.ERPOISSON(30)', A3: '=ER.ERBETA(2,3)', B1: '=ER.EROUTPUT("o",A1*A2+A3)' };
+  const cells = { A1: '=PSA.NORMAL(0,1)', A2: '=PSA.POISSON(30)', A3: '=PSA.BETA(2,3)', B1: '=PSA.OUTPUT("o",A1*A2+A3)' };
   const a = setup(cells), b = setup(cells);
   const ra = await a.R.simulate({ iterations: 200, settings: { seed: 42 } }), rb = await b.R.simulate({ iterations: 200, settings: { seed: 42 } });
   assert.deepStrictEqual(out(ra, 'o'), out(rb, 'o'));
@@ -38,13 +38,13 @@ test('same seed gives identical results whatever order Excel calculates in', asy
 });
 test('every generator runs a model end to end', async () => {
   for (const rng of Object.keys(Sg.RNGS)) {
-    const { R } = setup({ A1: '=ER.ERNORMAL(5,1)', B1: '=ER.EROUTPUT("o",A1)' });
+    const { R } = setup({ A1: '=PSA.NORMAL(5,1)', B1: '=PSA.OUTPUT("o",A1)' });
     const res = await R.simulate({ iterations: 2000, settings: { rng } });
     near(stats.mean(out(res, 'o')), 5, 0.12, rng);
   }
 });
 test('a bad parameter on one iteration is logged, the run continues, and that output gets no statistics', async () => {
-  const { R, X } = setup({ A1: '=ER.ERITERATION()', A2: '=ER.ERNORMAL(0,IF(A1=50,-1,1))', B1: '=ER.EROUTPUT("o",A2)', A3: '=ER.ERNORMAL(5,1)', B2: '=ER.EROUTPUT("ok",A3)' });
+  const { R, X } = setup({ A1: '=PSA.ITERATION()', A2: '=PSA.NORMAL(0,IF(A1=50,-1,1))', B1: '=PSA.OUTPUT("o",A2)', A3: '=PSA.NORMAL(5,1)', B2: '=PSA.OUTPUT("ok",A3)' });
   const res = await R.simulate({ iterations: 100 });
   assert.strictEqual(res.completed, 100);
   assert.ok(Number.isNaN(out(res, 'o')[49]));
@@ -57,10 +57,10 @@ test('a bad parameter on one iteration is logged, the run continues, and that ou
   assert.strictEqual(X.manual, false, 'calc mode restored');
 });
 test('an output downstream of a bad parameter gets a message naming the cell, not "no outputs"', async () => {
-  await assert.rejects(setup({ A1: '=ER.ERBETA(-1,3)', B1: '=ER.EROUTPUT("o",A1)' }).R.simulate({ iterations: 5 }), /S!B1 shows #NUM! before the run/);
+  await assert.rejects(setup({ A1: '=PSA.BETA(-1,3)', B1: '=PSA.OUTPUT("o",A1)' }).R.simulate({ iterations: 5 }), /S!B1 shows #NUM! before the run/);
 });
 test('late or missing reports are recovered by reading the cell', async () => {
-  const { E, X, R } = setup({ A1: '=ER.ERNORMAL(5,1)', B1: '=ER.EROUTPUT("o",A1)' });
+  const { E, X, R } = setup({ A1: '=PSA.NORMAL(5,1)', B1: '=PSA.OUTPUT("o",A1)' });
   const real = E.report.bind(E);
   let n = 0;
   E.report = (a, v) => { if (E.phase === 'iter' && ++n % 3 === 0) return; real(a, v); };
@@ -69,100 +69,100 @@ test('late or missing reports are recovered by reading the cell', async () => {
   assert.ok(X.calcs > 30);
 });
 test('duplicate output names are a fatal error', async () => {
-  const { R } = setup({ A1: '=ER.ERNORMAL(0,1)', B1: '=ER.EROUTPUT("o",A1)', B2: '=ER.EROUTPUT("o",A1)' });
+  const { R } = setup({ A1: '=PSA.NORMAL(0,1)', B1: '=PSA.OUTPUT("o",A1)', B2: '=PSA.OUTPUT("o",A1)' });
   await assert.rejects(R.simulate({ iterations: 5 }), /Names must be unique/);
 });
 test('no formulas and no outputs give direct instructions', async () => {
-  await assert.rejects(setup({ A1: 1 }).R.simulate({ iterations: 5 }), /No ER\. functions/);
-  await assert.rejects(setup({ A1: '=ER.ERNORMAL(0,1)' }).R.simulate({ iterations: 5 }), /No outputs/);
+  await assert.rejects(setup({ A1: 1 }).R.simulate({ iterations: 5 }), /No PSA\. functions/);
+  await assert.rejects(setup({ A1: '=PSA.NORMAL(0,1)' }).R.simulate({ iterations: 5 }), /No outputs/);
 });
-test('ER.ERSETITNO overrides the iteration count', async () => {
-  const { R } = setup({ A1: '=ER.ERSETITNO(37)', A2: '=ER.ERNORMAL(0,1)', B1: '=ER.EROUTPUT("o",A2)' });
+test('PSA.SETITNO overrides the iteration count', async () => {
+  const { R } = setup({ A1: '=PSA.SETITNO(37)', A2: '=PSA.NORMAL(0,1)', B1: '=PSA.OUTPUT("o",A2)' });
   assert.strictEqual((await R.simulate({ iterations: 500 })).completed, 37);
 });
 test('multinomial draws sum to N in any calc order, with binomial margins', async () => {
-  const { R } = setup({ M1: '=ER.ERMULTINOMIAL("m",3,100)', A1: '=ER.ERMULTINOMIALCOM(M1,1,20)', A2: '=ER.ERMULTINOMIALCOM(M1,2,30)', A3: '=ER.ERMULTINOMIALCOM(M1,3,50)', B1: '=ER.EROUTPUT("sum",SUM(A1:A3))', B2: '=ER.EROUTPUT("a",A1)' });
+  const { R } = setup({ M1: '=PSA.MULTINOMIAL("m",3,100)', A1: '=PSA.MULTINOMIALCOM(M1,1,20)', A2: '=PSA.MULTINOMIALCOM(M1,2,30)', A3: '=PSA.MULTINOMIALCOM(M1,3,50)', B1: '=PSA.OUTPUT("sum",SUM(A1:A3))', B2: '=PSA.OUTPUT("a",A1)' });
   const res = await R.simulate({ iterations: 8000 });
   assert.ok(out(res, 'sum').every((v) => v === 100));
   near(stats.mean(out(res, 'a')), 20, 0.2); near(stats.sd(out(res, 'a')), 4, 0.15);
 });
 test('multinomial cases that do not sum to N are refused before the run', async () => {
-  const { R } = setup({ M1: '=ER.ERMULTINOMIAL("m",2,100)', A1: '=ER.ERMULTINOMIALCOM(M1,1,20)', A2: '=ER.ERMULTINOMIALCOM(M1,2,30)', B1: '=ER.EROUTPUT("o",A1+A2)' });
+  const { R } = setup({ M1: '=PSA.MULTINOMIAL("m",2,100)', A1: '=PSA.MULTINOMIALCOM(M1,1,20)', A2: '=PSA.MULTINOMIALCOM(M1,2,30)', B1: '=PSA.OUTPUT("o",A1+A2)' });
   await assert.rejects(R.simulate({ iterations: 5 }), /sum to 50, but N is 100/);
 });
 test('Dirichlet draws sum to 1 with the right marginal Beta in any calc order', async () => {
-  const { R } = setup({ M1: '=ER.ERDIRICHLET("d",3,100)', A1: '=ER.ERDIRICHLETCOM(M1,1,20)', A2: '=ER.ERDIRICHLETCOM(M1,2,30)', A3: '=ER.ERDIRICHLETCOM(M1,3,50)', B1: '=ER.EROUTPUT("sum",SUM(A1:A3))', B2: '=ER.EROUTPUT("c",A3)' });
+  const { R } = setup({ M1: '=PSA.DIRICHLET("d",3,100)', A1: '=PSA.DIRICHLETCOM(M1,1,20)', A2: '=PSA.DIRICHLETCOM(M1,2,30)', A3: '=PSA.DIRICHLETCOM(M1,3,50)', B1: '=PSA.OUTPUT("sum",SUM(A1:A3))', B2: '=PSA.OUTPUT("c",A3)' });
   const res = await R.simulate({ iterations: 8000 });
   assert.ok(out(res, 'sum').every((v) => Math.abs(v - 1) < 1e-9));
   near(stats.mean(out(res, 'c')), 0.5, 0.004); near(stats.sd(out(res, 'c')), Sg.DISTS.ErBeta.sd([50, 50]), 0.003);
 });
 test('non-parametric bootstrap resamples whole records with replacement', async () => {
-  const data = [1, 2, 3, 4, 5, 6], cells = { M1: '=ER.ERNONPARAM("b",6,2)' };
-  data.forEach((v, i) => { cells['A' + (i + 1)] = v; cells['B' + (i + 1)] = v * 10; cells['C' + (i + 1)] = `=ER.ERNONPARAMCOM(M1,${i + 1},1,A${i + 1})`; cells['D' + (i + 1)] = `=ER.ERNONPARAMCOM(M1,${i + 1},2,B${i + 1})`; });
-  cells.E1 = '=ER.EROUTPUT("mean",AVERAGE(C1:C6))'; cells.E2 = '=ER.EROUTPUT("ratio",SUM(D1:D6)/SUM(C1:C6))';
+  const data = [1, 2, 3, 4, 5, 6], cells = { M1: '=PSA.NONPARAM("b",6,2)' };
+  data.forEach((v, i) => { cells['A' + (i + 1)] = v; cells['B' + (i + 1)] = v * 10; cells['C' + (i + 1)] = `=PSA.NONPARAMCOM(M1,${i + 1},1,A${i + 1})`; cells['D' + (i + 1)] = `=PSA.NONPARAMCOM(M1,${i + 1},2,B${i + 1})`; });
+  cells.E1 = '=PSA.OUTPUT("mean",AVERAGE(C1:C6))'; cells.E2 = '=PSA.OUTPUT("ratio",SUM(D1:D6)/SUM(C1:C6))';
   const res = await setup(cells).R.simulate({ iterations: 5000 });
   near(stats.mean(out(res, 'mean')), 3.5, 0.03);
   near(stats.sd(out(res, 'mean')), Math.sqrt(35 / 12 / 6), 0.03);
   assert.ok(out(res, 'ratio').every((v) => Math.abs(v - 10) < 1e-9), 'fields of a record stay together');
 });
 test('randomisation permutes without replacement', async () => {
-  const cells = { M1: '=ER.ERRANDOMISE("r",5,1)' };
-  [1, 2, 3, 4, 5].forEach((v, i) => { cells['A' + (i + 1)] = v; cells['C' + (i + 1)] = `=ER.ERRANDOMISECOM(M1,${i + 1},1,A${i + 1})`; });
-  cells.E1 = '=ER.EROUTPUT("sum",SUM(C1:C5))'; cells.E2 = '=ER.EROUTPUT("first",C1)';
+  const cells = { M1: '=PSA.RANDOMISE("r",5,1)' };
+  [1, 2, 3, 4, 5].forEach((v, i) => { cells['A' + (i + 1)] = v; cells['C' + (i + 1)] = `=PSA.RANDOMISECOM(M1,${i + 1},1,A${i + 1})`; });
+  cells.E1 = '=PSA.OUTPUT("sum",SUM(C1:C5))'; cells.E2 = '=PSA.OUTPUT("first",C1)';
   const res = await setup(cells).R.simulate({ iterations: 3000 });
   assert.ok(out(res, 'sum').every((v) => v === 15));
   near(stats.mean(out(res, 'first')), 3, 0.08);
 });
 const corr3 = { H1: 1, H2: 0.7, I2: 1, H3: -0.4, I3: 0.1, J3: 1 };
 test('correlated normals reach the requested correlation', async () => {
-  const res = await setup(Object.assign({}, corr3, { M1: '=ER.ERCORRNORMAL("c",H1:J3,3,TRUE)', A1: '=ER.ERCORRNORMALCOM(M1,1,10,2)', A2: '=ER.ERCORRNORMALCOM(M1,2,0,1)', A3: '=ER.ERCORRNORMALCOM(M1,3,5,3)', B1: '=ER.EROUTPUT("a",A1)', B2: '=ER.EROUTPUT("b",A2)', B3: '=ER.EROUTPUT("c",A3)' })).R.simulate({ iterations: 10000 });
+  const res = await setup(Object.assign({}, corr3, { M1: '=PSA.CORRNORMAL("c",H1:J3,3,TRUE)', A1: '=PSA.CORRNORMALCOM(M1,1,10,2)', A2: '=PSA.CORRNORMALCOM(M1,2,0,1)', A3: '=PSA.CORRNORMALCOM(M1,3,5,3)', B1: '=PSA.OUTPUT("a",A1)', B2: '=PSA.OUTPUT("b",A2)', B3: '=PSA.OUTPUT("c",A3)' })).R.simulate({ iterations: 10000 });
   near(stats.pearson(out(res, 'a'), out(res, 'b')), 0.7, 0.02);
   near(stats.pearson(out(res, 'a'), out(res, 'c')), -0.4, 0.03);
   near(stats.mean(out(res, 'a')), 10, 0.08); near(stats.sd(out(res, 'c')), 3, 0.08);
 });
 test('correlated normals accept a covariance matrix', async () => {
-  const res = await setup({ H1: 4, H2: 1.2, I2: 1, M1: '=ER.ERCORRNORMAL("c",H1:I2,2,FALSE)', A1: '=ER.ERCORRNORMALCOM(M1,1,0,2)', A2: '=ER.ERCORRNORMALCOM(M1,2,0,1)', B1: '=ER.EROUTPUT("a",A1)', B2: '=ER.EROUTPUT("b",A2)' }).R.simulate({ iterations: 8000 });
+  const res = await setup({ H1: 4, H2: 1.2, I2: 1, M1: '=PSA.CORRNORMAL("c",H1:I2,2,FALSE)', A1: '=PSA.CORRNORMALCOM(M1,1,0,2)', A2: '=PSA.CORRNORMALCOM(M1,2,0,1)', B1: '=PSA.OUTPUT("a",A1)', B2: '=PSA.OUTPUT("b",A2)' }).R.simulate({ iterations: 8000 });
   near(stats.pearson(out(res, 'a'), out(res, 'b')), 0.6, 0.03);
 });
 test('an invalid correlation matrix is a fatal error that points to Tools', async () => {
-  const bad = { H1: 1, H2: 0.9, I2: 1, H3: -0.9, I3: 0.9, J3: 1, M1: '=ER.ERCORRNORMAL("c",H1:J3,3,TRUE)', A1: '=ER.ERCORRNORMALCOM(M1,1,0,1)', B1: '=ER.EROUTPUT("a",A1)' };
+  const bad = { H1: 1, H2: 0.9, I2: 1, H3: -0.9, I3: 0.9, J3: 1, M1: '=PSA.CORRNORMAL("c",H1:J3,3,TRUE)', A1: '=PSA.CORRNORMALCOM(M1,1,0,1)', B1: '=PSA.OUTPUT("a",A1)' };
   await assert.rejects(setup(bad).R.simulate({ iterations: 5 }), /not valid.*Tools/s);
 });
 test('rank correlation keeps each marginal and imposes the correlation', async () => {
-  const res = await setup({ H1: 1, H2: 0.8, I2: 1, M1: '=ER.ERRANKCORR("r",H1:I2,2)', A1: '=ER.ERRANKCORRCOM(M1,1,ER.ERGAMMA(3,2))', A2: '=ER.ERRANKCORRCOM(M1,2,ER.ERWEIBULL(5,2.1))', B1: '=ER.EROUTPUT("g",A1)', B2: '=ER.EROUTPUT("w",A2)' }).R.simulate({ iterations: 8000 });
+  const res = await setup({ H1: 1, H2: 0.8, I2: 1, M1: '=PSA.RANKCORR("r",H1:I2,2)', A1: '=PSA.RANKCORRCOM(M1,1,PSA.GAMMA(3,2))', A2: '=PSA.RANKCORRCOM(M1,2,PSA.WEIBULL(5,2.1))', B1: '=PSA.OUTPUT("g",A1)', B2: '=PSA.OUTPUT("w",A2)' }).R.simulate({ iterations: 8000 });
   near(stats.spearman(out(res, 'g'), out(res, 'w')), (6 / Math.PI) * Math.asin(0.8 / 2), 0.03, 'Spearman of normals correlated at 0.8');
   near(stats.mean(out(res, 'g')), 6, 0.2); near(stats.sd(out(res, 'g')), 2 * Math.sqrt(3), 0.2);
   near(stats.mean(out(res, 'w')), Sg.DISTS.ErWeibull.mean([5, 2.1]), 0.15);
 });
 test('rank correlation without an embedded function is fatal', async () => {
-  await assert.rejects(setup({ H1: 1, H2: 0.8, I2: 1, X1: '=ER.ERGAMMA(3,2)', M1: '=ER.ERRANKCORR("r",H1:I2,2)', A1: '=ER.ERRANKCORRCOM(M1,1,X1)', B1: '=ER.EROUTPUT("g",A1)' }).R.simulate({ iterations: 5 }), /embedded/);
+  await assert.rejects(setup({ H1: 1, H2: 0.8, I2: 1, X1: '=PSA.GAMMA(3,2)', M1: '=PSA.RANKCORR("r",H1:I2,2)', A1: '=PSA.RANKCORRCOM(M1,1,X1)', B1: '=PSA.OUTPUT("g",A1)' }).R.simulate({ iterations: 5 }), /embedded/);
 });
 test('correlated Dirichlets sum to 1 and correlate across distributions', async () => {
-  const res = await setup({ H1: 1, H2: 0.8, I2: 1, P1: 20, P2: 30, P3: 50, Q1: 40, Q2: 40, Q3: 20, M1: '=ER.ERDIRICHLETCORR("d",H1:I2,2)', N1: '=ER.ERDIRICHLETCORRIN(M1,P1:P3,1)', N2: '=ER.ERDIRICHLETCORRIN(M1,Q1:Q3,2)', A1: '=ER.ERDIRICHLETCORROUT(N1,1)', C1: '=ER.ERDIRICHLETCORROUT(N2,2)', B1: '=ER.EROUTPUT("s",SUM(A1:A3))', B2: '=ER.EROUTPUT("x",A1)', B3: '=ER.EROUTPUT("y",C1)' }).R.simulate({ iterations: 6000 });
+  const res = await setup({ H1: 1, H2: 0.8, I2: 1, P1: 20, P2: 30, P3: 50, Q1: 40, Q2: 40, Q3: 20, M1: '=PSA.DIRICHLETCORR("d",H1:I2,2)', N1: '=PSA.DIRICHLETCORRIN(M1,P1:P3,1)', N2: '=PSA.DIRICHLETCORRIN(M1,Q1:Q3,2)', A1: '=PSA.DIRICHLETCORROUT(N1,1)', C1: '=PSA.DIRICHLETCORROUT(N2,2)', B1: '=PSA.OUTPUT("s",SUM(A1:A3))', B2: '=PSA.OUTPUT("x",A1)', B3: '=PSA.OUTPUT("y",C1)' }).R.simulate({ iterations: 6000 });
   assert.ok(out(res, 's').every((v) => Math.abs(v - 1) < 1e-9));
   near(stats.mean(out(res, 'x')), 0.2, 0.004);
   const r = stats.pearson(out(res, 'x'), out(res, 'y'));
   assert.ok(r > 0.6 && r < 0.85, 'guide says achieved correlation sits a bit closer to zero: ' + r);
 });
 test('correlated multinomials sum to their total', async () => {
-  const res = await setup({ H1: 1, H2: 0.8, I2: 1, P1: 20, P2: 30, P3: 50, Q1: 40, Q2: 40, Q3: 20, M1: '=ER.ERMULTINOMIALCORR("d",H1:I2,2)', N1: '=ER.ERMULTINOMIALCORRIN(M1,P1:P3,1)', N2: '=ER.ERMULTINOMIALCORRIN(M1,Q1:Q3,2)', A1: '=ER.ERMULTINOMIALCORROUT(N1,1)', C1: '=ER.ERMULTINOMIALCORROUT(N2,2)', B1: '=ER.EROUTPUT("s",SUM(A1:A3))', B2: '=ER.EROUTPUT("x",A1)', B3: '=ER.EROUTPUT("y",C1)' }).R.simulate({ iterations: 3000 });
+  const res = await setup({ H1: 1, H2: 0.8, I2: 1, P1: 20, P2: 30, P3: 50, Q1: 40, Q2: 40, Q3: 20, M1: '=PSA.MULTINOMIALCORR("d",H1:I2,2)', N1: '=PSA.MULTINOMIALCORRIN(M1,P1:P3,1)', N2: '=PSA.MULTINOMIALCORRIN(M1,Q1:Q3,2)', A1: '=PSA.MULTINOMIALCORROUT(N1,1)', C1: '=PSA.MULTINOMIALCORROUT(N2,2)', B1: '=PSA.OUTPUT("s",SUM(A1:A3))', B2: '=PSA.OUTPUT("x",A1)', B3: '=PSA.OUTPUT("y",C1)' }).R.simulate({ iterations: 3000 });
   assert.ok(out(res, 's').every((v) => v === 100));
   assert.ok(stats.pearson(out(res, 'x'), out(res, 'y')) > 0.5);
 });
 test('truncation stays in bounds, and a hopeless range returns #NUM!', async () => {
-  const res = await setup({ A1: '=ER.ERTRUNCATE(0,25,ER.ERNORMAL(15,5))', B1: '=ER.EROUTPUT("o",A1)' }).R.simulate({ iterations: 3000, settings: { maxTruncate: 100 } });
+  const res = await setup({ A1: '=PSA.TRUNCATE(0,25,PSA.NORMAL(15,5))', B1: '=PSA.OUTPUT("o",A1)' }).R.simulate({ iterations: 3000, settings: { maxTruncate: 100 } });
   assert.ok(out(res, 'o').every((v) => v >= 0 && v <= 25));
-  const hopeless = await setup({ A1: '=ER.ERTRUNCATE(100,101,ER.ERNORMAL(0,1))', B1: '=ER.EROUTPUT("o",A1)' }).R.simulate({ iterations: 5 });
+  const hopeless = await setup({ A1: '=PSA.TRUNCATE(100,101,PSA.NORMAL(0,1))', B1: '=PSA.OUTPUT("o",A1)' }).R.simulate({ iterations: 5 });
   assert.strictEqual(stats.summary(hopeless.outputs[0].values, 95).failed, 5);
-  await assert.rejects(setup({ A1: '=ER.ERTRUNCATE(0,1,ER.ERDICE(6))', B1: '=ER.EROUTPUT("o",A1)' }).R.simulate({ iterations: 5 }), /cannot be embedded/);
+  await assert.rejects(setup({ A1: '=PSA.TRUNCATE(0,1,PSA.DICE(6))', B1: '=PSA.OUTPUT("o",A1)' }).R.simulate({ iterations: 5 }), /cannot be embedded/);
 });
 test('ErConditional holds a draw until its condition is true again', async () => {
-  const res = await setup({ I1: '=ER.ERITERATION()', A1: '=ER.ERCONDITIONAL(I1=1,ER.ERNORMAL(0,1))', A2: '=ER.ERCONDITIONAL(I1>3,I1)', B1: '=ER.EROUTPUT("o",A1)', B2: '=ER.EROUTPUT("p",A2)' }).R.simulate({ iterations: 6 });
+  const res = await setup({ I1: '=PSA.ITERATION()', A1: '=PSA.CONDITIONAL(I1=1,PSA.NORMAL(0,1))', A2: '=PSA.CONDITIONAL(I1>3,I1)', B1: '=PSA.OUTPUT("o",A1)', B2: '=PSA.OUTPUT("p",A2)' }).R.simulate({ iterations: 6 });
   assert.strictEqual(new Set(out(res, 'o')).size, 1);
   assert.deepStrictEqual(out(res, 'p'), [0, 0, 0, 4, 5, 6]);
 });
 test('conditional firing: once per run, and none returns the mean', async () => {
-  const cells = { A1: '=ER.ERNORMAL(7,1)', A2: '=ER.ERNORMAL(0,1)', A3: '=ER.ERNORMAL(3,9)', B1: '=ER.EROUTPUT("a",A1)', B2: '=ER.EROUTPUT("b",A2)', B3: '=ER.EROUTPUT("c",A3)' };
+  const cells = { A1: '=PSA.NORMAL(7,1)', A2: '=PSA.NORMAL(0,1)', A3: '=PSA.NORMAL(3,9)', B1: '=PSA.OUTPUT("a",A1)', B2: '=PSA.OUTPUT("b",A2)', B3: '=PSA.OUTPUT("c",A3)' };
   const res = await setup(cells).R.simulate({ iterations: 50, runs: 3, settings: { conditionalOn: true, conditional: { 'S!A1|ErNormal': 'once', 'S!A3|ErNormal': 'none' } } });
   const a = out(res, 'a');
   for (const k of [0, 50, 100]) assert.strictEqual(new Set(a.slice(k, k + 50)).size, 1, 'one value per run');
@@ -171,12 +171,12 @@ test('conditional firing: once per run, and none returns the mean', async () => 
   assert.ok(out(res, 'c').every((v) => v === 3));
 });
 test('store and retrieve see the previous iteration; first iteration is 0', async () => {
-  const res = await setup({ I1: '=ER.ERITERATION()', A1: '=ER.ERSTORE("k",I1*10)', A2: '=ER.ERRETRIEVE("k")', B1: '=ER.EROUTPUT("o",A2)', A3: '=ER.ERSTOREARRAY("v",D1:D2)', D1: '=I1', D2: '=I1*2', E1: '=ER.ERRETRIEVEARRAY("v")', B2: '=ER.EROUTPUT("x",E2)' }).R.simulate({ iterations: 4 });
+  const res = await setup({ I1: '=PSA.ITERATION()', A1: '=PSA.STORE("k",I1*10)', A2: '=PSA.RETRIEVE("k")', B1: '=PSA.OUTPUT("o",A2)', A3: '=PSA.STOREARRAY("v",D1:D2)', D1: '=I1', D2: '=I1*2', E1: '=PSA.RETRIEVEARRAY("v")', B2: '=PSA.OUTPUT("x",E2)' }).R.simulate({ iterations: 4 });
   assert.deepStrictEqual(out(res, 'o'), [0, 10, 20, 30]);
   assert.deepStrictEqual(out(res, 'x'), [0, 2, 4, 6]);
 });
 test('statistics become final at run end and feed ErRunOutput across runs', async () => {
-  const { X, R } = setup({ A1: '=ER.ERNORMAL(10,1)', B1: '=ER.ERMEAN(A1)', B2: '=ER.ERSTDEV(A1)', B3: '=ER.ERMIN(A1)', B4: '=ER.ERMAX(A1)', B5: '=ER.ERTOTAL(A1)', B6: '=ER.ERPERCENTILE(A1,50)', B7: '=ER.ERCORRELATION(A1,A1)', C1: '=ER.ERRUNOUTPUT("runmean",B1)', C2: '=ER.EROUTPUT("o",A1)', C3: '=ER.ERRUNDATAARRAY("arr",B1)', D1: '=ER.ERDATA(A1,3)', E1: '=ER.ERDATAARRAY("all",A1)' });
+  const { X, R } = setup({ A1: '=PSA.NORMAL(10,1)', B1: '=PSA.MEAN(A1)', B2: '=PSA.STDEV(A1)', B3: '=PSA.MIN(A1)', B4: '=PSA.MAX(A1)', B5: '=PSA.TOTAL(A1)', B6: '=PSA.PERCENTILE(A1,50)', B7: '=PSA.CORRELATION(A1,A1)', C1: '=PSA.RUNOUTPUT("runmean",B1)', C2: '=PSA.OUTPUT("o",A1)', C3: '=PSA.RUNDATAARRAY("arr",B1)', D1: '=PSA.DATA(A1,3)', E1: '=PSA.DATAARRAY("all",A1)' });
   const res = await R.simulate({ iterations: 400, runs: 5, settings: { seed: 9 } });
   const rm = res.runOutputs.find((o) => o.name === 'runmean').values;
   assert.strictEqual(rm.length, 5);
@@ -194,25 +194,25 @@ test('statistics become final at run end and feed ErRunOutput across runs', asyn
   near(X.display('S!C7'), rm[4], 1e-12, 'ErRunDataArray bottom');
 });
 test('ErDataArray shows #NUM! before a run', async () => {
-  const { X } = setup({ A1: '=ER.ERNORMAL(0,1)', E1: '=ER.ERDATAARRAY("all",A1)' });
+  const { X } = setup({ A1: '=PSA.NORMAL(0,1)', E1: '=PSA.DATAARRAY("all",A1)' });
   await X.calculate();
   assert.strictEqual(X.display('S!E1'), '#NUM!');
 });
 test('microsimulation pattern: effect drawn once per run, individuals every iteration', async () => {
-  const res = await setup({ I1: '=ER.ERITERATION()', A1: '=ER.ERCONDITIONAL(I1=1,ER.ERRELATIVERISK(2,0.1))', A2: '=ER.EREXPONENTIAL(10)', A3: '=A2/A1', T1: '=ER.ERMEAN(A3)', C1: '=ER.ERRUNOUTPUT("pop",T1)' }).R.simulate({ iterations: 1000, runs: 40 });
+  const res = await setup({ I1: '=PSA.ITERATION()', A1: '=PSA.CONDITIONAL(I1=1,PSA.RELATIVERISK(2,0.1))', A2: '=PSA.EXPONENTIAL(10)', A3: '=A2/A1', T1: '=PSA.MEAN(A3)', C1: '=PSA.RUNOUTPUT("pop",T1)' }).R.simulate({ iterations: 1000, runs: 40 });
   const v = res.runOutputs[0].values;
-  near(stats.mean(v), 5.05, 0.15);
+  near(stats.mean(v), 5.05, 0.3); // 40 runs with SD near 0.5: SE about 0.08, so this is about 4 SE
   assert.ok(stats.sd(v) > 0.3 && stats.sd(v) < 0.8);
 });
 // The guide's OptimizationIt example: draw data each iteration, hold it, fit a line, record the fit.
 const fitCells = () => ({
   X1: 0, X2: 1, X3: 2,
-  Y1: '=ER.ERBETA(300,700)', Y2: '=ER.ERBETA(270,730)', Y3: '=ER.ERBETA(240,760)',
+  Y1: '=PSA.BETA(300,700)', Y2: '=PSA.BETA(270,730)', Y3: '=PSA.BETA(240,760)',
   H1: 0.3, H2: -0.02,
-  A1: '=ER.ERMINIMIZE("fit1",H1:H2)',
+  A1: '=PSA.MINIMIZE("fit1",H1:H2)',
   Z1: '=A1+A2*X1', Z2: '=A1+A2*X2', Z3: '=A1+A2*X3',
-  L1: '=ER.ERMINIMIZERESULT("fit1",SUMXMY2(Y1:Y3,Z1:Z3)*1000)',
-  O1: '=ER.EROUTPUT("trend",A2)', O2: '=ER.EROUTPUT("sse",L1)', O3: '=ER.EROUTPUT("true trend",(Y3-Y1)/2)',
+  L1: '=PSA.MINIMIZERESULT("fit1",SUMXMY2(Y1:Y3,Z1:Z3)*1000)',
+  O1: '=PSA.OUTPUT("trend",A2)', O2: '=PSA.OUTPUT("sse",L1)', O3: '=PSA.OUTPUT("true trend",(Y3-Y1)/2)',
 });
 for (const [method, iters, opts] of [['quasiNewton', 40, { tolerance: 1e-6 }], ['downhill', 40, { tolerance: 1e-6 }], ['crossEntropy', 3, {}], ['annealing', 2, { maxTries: 60, startTemperature: 1 }]]) {
   test(`${method}: Iteration option fits within every iteration, and the fit matches the exact answer`, async () => {
@@ -261,14 +261,14 @@ test('quasi-Newton fails on noise and down-hill simplex with the noisy rule stop
 });
 test('Run option: each loss evaluation is a whole run, with the run count set by the optimiser', async () => {
   // The guide's OptimizationRun example, with log-transformed Beta parameters to keep them positive.
-  const { R } = setup({ C1: 3, C2: 3, B1: '=ER.ERMINIMIZE("fit2",C1:C2)', D1: '=EXP(B1)', D2: '=EXP(B2)', E1: '=ER.ERBETA(D1,D2)', F1: '=ER.ERMEAN(E1)', G1: 0.77, G2: 123, H1: '=(F1-G1)^2*2*G2+((D1+D2)-G2)^2/G2', L1: '=ER.ERMINIMIZERESULT("fit2",H1)', O1: '=ER.EROUTPUT("mean",F1)', P1: '=ER.ERRUNOUTPUT("sum",D1+D2)' });
+  const { R } = setup({ C1: 3, C2: 3, B1: '=PSA.MINIMIZE("fit2",C1:C2)', D1: '=EXP(B1)', D2: '=EXP(B2)', E1: '=PSA.BETA(D1,D2)', F1: '=PSA.MEAN(E1)', G1: 0.77, G2: 123, H1: '=(F1-G1)^2*2*G2+((D1+D2)-G2)^2/G2', L1: '=PSA.MINIMIZERESULT("fit2",H1)', O1: '=PSA.OUTPUT("mean",F1)', P1: '=PSA.RUNOUTPUT("sum",D1+D2)' });
   const res = await R.simulate({ iterations: 300, optim: { name: 'fit2', method: 'downhill', on: 'run', options: { noisy: true, noiseTolerance: 0.003, tolerance: 1e-5, maxTries: 400 } }, settings: { seed: 12 } });
   assert.ok(res.R > 5, 'runs set by the optimiser: ' + res.R);
   near(Math.exp(res.optim.x[0]) / (Math.exp(res.optim.x[0]) + Math.exp(res.optim.x[1])), 0.77, 0.03);
   near(Math.exp(res.optim.x[0]) + Math.exp(res.optim.x[1]), 123, 25);
 }, { timeout: 120000 });
 test('one-way tornado: documented ranges move one input at a time from the mean', async () => {
-  const { R } = setup({ A1: '=ER.ERNORMAL(10,2)', A2: '=ER.ERNORMAL(5,1)', B1: '=ER.EROUTPUT("o",A1*2+A2)' });
+  const { R } = setup({ A1: '=PSA.NORMAL(10,2)', A2: '=PSA.NORMAL(5,1)', B1: '=PSA.OUTPUT("o",A1*2+A2)' });
   const sd = await R.univariate({ mode: 'sd' });
   assert.deepStrictEqual(sd.base, [25]);
   const r = sd.rows.find((x) => x.label === 'S!A1');
@@ -277,7 +277,7 @@ test('one-way tornado: documented ranges move one input at a time from the mean'
   const q = pct.rows.find((x) => x.label === 'S!A2');
   assert.deepStrictEqual([q.low[0], q.high[0]], [24.5, 25.5]);
 });
-const sensModel = { A1: '=ER.ERNORMAL(10,2)', A2: '=ER.ERNORMAL(5,1)', A3: '=ER.ERGAMMA(4,1)', B1: '=ER.EROUTPUT("o",A1*A2+A3)' };
+const sensModel = { A1: '=PSA.NORMAL(10,2)', A2: '=PSA.NORMAL(5,1)', A3: '=PSA.GAMMA(4,1)', B1: '=PSA.OUTPUT("o",A1*A2+A3)' };
 const K1 = 'S!A1|ErNormal', K2 = 'S!A2|ErNormal', K3 = 'S!A3|ErGamma';
 test('one-way tornado: your own ranges, with empty fields using the interval', async () => {
   const { R } = setup(sensModel);
@@ -320,7 +320,7 @@ test('scenarios set chosen inputs low, high or to a number, and the rest stay at
   assert.strictEqual(s.rows[2].values[0], s.base[0]);
 });
 test('sensitivity analysis and scanning leave the last run\'s results in the sheet', async () => {
-  const { R, X } = setup({ A1: '=ER.ERNORMAL(10,1)', B1: '=ER.ERMEAN(A1)', E1: '=ER.ERDATAARRAY("all",A1)', C1: '=ER.EROUTPUT("o",A1)' });
+  const { R, X } = setup({ A1: '=PSA.NORMAL(10,1)', B1: '=PSA.MEAN(A1)', E1: '=PSA.DATAARRAY("all",A1)', C1: '=PSA.OUTPUT("o",A1)' });
   const res = await R.simulate({ iterations: 50 });
   const mean = stats.mean(out(res, 'o'));
   await R.univariate({ mode: 'sd' });
@@ -331,17 +331,17 @@ test('sensitivity analysis and scanning leave the last run\'s results in the she
 });
 // ---- Behaviour stated in the Ersatz Function Overview ----
 test('Overview: conditional array store restarts at iteration 1 of each run, then adds (BreastCaMarkovMC pattern)', async () => {
-  const { R } = setup({ I1: '=ER.ERITERATION()', D1: '=I1*10', S1: '=ER.ERCONDSTOREARRAY("sum",TRUE,D1:D1,2)', G1: '=ER.ERCONDRETRIEVEARRAY(S1,TRUE)', O1: '=ER.ERRUNOUTPUT("total",G1)' });
+  const { R } = setup({ I1: '=PSA.ITERATION()', D1: '=I1*10', S1: '=PSA.CONDSTOREARRAY("sum",TRUE,D1:D1,2)', G1: '=PSA.CONDRETRIEVEARRAY(S1,TRUE)', O1: '=PSA.RUNOUTPUT("total",G1)' });
   const res = await R.simulate({ iterations: 4, runs: 3 });
   assert.deepStrictEqual(res.runOutputs[0].values, [100, 100, 100], 'each run sums its own iterations');
 });
 test('Overview: a store firing only at the end of a run carries across runs (ConditionalStore pattern)', async () => {
-  const { R } = setup({ I1: '=ER.ERITERATION()', R1: '=ER.ERRUNNO()', D1: '=R1+1', S1: '=ER.ERCONDSTOREARRAY("pif",I1=2,D1:D1,1)', G1: '=ER.ERCONDRETRIEVEARRAY(S1,I1=2)', O1: '=ER.ERRUNOUTPUT("product",G1)' });
+  const { R } = setup({ I1: '=PSA.ITERATION()', R1: '=PSA.RUNNO()', D1: '=R1+1', S1: '=PSA.CONDSTOREARRAY("pif",I1=2,D1:D1,1)', G1: '=PSA.CONDRETRIEVEARRAY(S1,I1=2)', O1: '=PSA.RUNOUTPUT("product",G1)' });
   const res = await R.simulate({ iterations: 2, runs: 3 });
   assert.deepStrictEqual(res.runOutputs[0].values, [2, 6, 24]);
 });
 test('Overview: a stored number is retrieved at the next iteration or run, and is 0 only on the very first', async () => {
-  const { R } = setup({ I1: '=ER.ERITERATION()', U1: '=ER.ERRUNNO()', A1: '=ER.ERSTORE("k",U1*100+I1)', A2: '=ER.ERRETRIEVE("k")', B1: '=ER.ERRUNOUTPUT("last",A2)', B2: '=ER.EROUTPUT("o",A2)' });
+  const { R } = setup({ I1: '=PSA.ITERATION()', U1: '=PSA.RUNNO()', A1: '=PSA.STORE("k",U1*100+I1)', A2: '=PSA.RETRIEVE("k")', B1: '=PSA.RUNOUTPUT("last",A2)', B2: '=PSA.OUTPUT("o",A2)' });
   const res = await R.simulate({ iterations: 2, runs: 2, keepAll: true });
   assert.deepStrictEqual(Array.from(out(res, 'o')), [0, 101, 102, 201]);
 });
@@ -379,7 +379,7 @@ test('Overview: survival longer than the table returns the highest x plus 1, wha
   void F;
 });
 test('multivariate measures rank the dominant input first', async () => {
-  const { R } = setup({ A1: '=ER.ERNORMAL(0,5)', A2: '=ER.ERNORMAL(0,1)', A3: '=ER.ERUNIFORM(0,1)', B1: '=ER.EROUTPUT("o",EXP(A1/5)+A2*0.2)' });
+  const { R } = setup({ A1: '=PSA.NORMAL(0,5)', A2: '=PSA.NORMAL(0,1)', A3: '=PSA.UNIFORM(0,1)', B1: '=PSA.OUTPUT("o",EXP(A1/5)+A2*0.2)' });
   const res = await R.simulate({ iterations: 3000 });
   const y = out(res, 'o'), xs = res.inputs, get = (a) => xs.find((i) => i.addr === a).values;
   for (const f of [stats.pearson, stats.spearman, stats.kendall]) assert.ok(Math.abs(f(get('S!A1'), y)) > 0.5 && Math.abs(f(get('S!A3'), y)) < 0.1, f.name);
@@ -388,7 +388,7 @@ test('multivariate measures rank the dominant input first', async () => {
   assert.ok(Math.abs(p[xs.findIndex((i) => i.addr === 'S!A3')]) < 0.1);
 });
 test('cancel stops cleanly and keeps partial results', async () => {
-  const { R, X } = setup({ A1: '=ER.ERNORMAL(0,1)', B1: '=ER.EROUTPUT("o",A1)' });
+  const { R, X } = setup({ A1: '=PSA.NORMAL(0,1)', B1: '=PSA.OUTPUT("o",A1)' });
   const res = await R.simulate({ iterations: 100000, onProgress: () => R.cancel() });
   assert.ok(res.cancelled && res.completed < 100000);
   assert.strictEqual(X.manual, false);
@@ -411,26 +411,34 @@ test('ErFixed wraps, ErSortedArray sorts column-wise, ErVersion answers', () => 
   assert.strictEqual(F.ErFixed('a', [[1, 3], [2, 4]], 3), 3, 'column-wise');
   assert.deepStrictEqual(F.ErSortedArray('a', [[3], [1], [2]], 1), [[1], [2], [3]]);
   assert.deepStrictEqual(F.ErSortedArray('a', [[3], [1], [2]], 0), [[3], [2], [1]]);
-  assert.match(F.ErVersion(), /^Surrogate/);
+  assert.match(F.ErVersion(), /^PSAkit/);
 });
 test('conditional array store modes', async () => {
-  const { X, R } = setup({ I1: '=ER.ERITERATION()', D1: '=I1', A1: '=ER.ERCONDSTOREARRAY("s",I1>1,D1:D1,2)', E1: '=ER.ERCONDRETRIEVEARRAY(A1,TRUE)', B1: '=ER.EROUTPUT("o",I1)' });
+  const { X, R } = setup({ I1: '=PSA.ITERATION()', D1: '=I1', A1: '=PSA.CONDSTOREARRAY("s",I1>1,D1:D1,2)', E1: '=PSA.CONDRETRIEVEARRAY(A1,TRUE)', B1: '=PSA.OUTPUT("o",I1)' });
   await R.simulate({ iterations: 4 });
   await X.calculate();
   assert.strictEqual(X.display('S!E1'), 9, '2+3+4');
 });
 test('formula migration handles case, paths, strings and array formulas', () => {
   const c = Sg.convertFormula;
-  assert.strictEqual(c('=ErNormal(0,1)'), '=ER.ERNORMAL(0,1)');
-  assert.strictEqual(c('=ERNORMAL(0,1)+ergamma(1,2)'), '=ER.ERNORMAL(0,1)+ER.ERGAMMA(1,2)');
-  assert.strictEqual(c("='C:\\Program Files\\Ersatz\\ersatzdll.xll'!ErBeta(1,2)"), '=ER.ERBETA(1,2)');
-  assert.strictEqual(c('=ErOutput("ErNormal(x)",A1)'), '=ER.EROUTPUT("ErNormal(x)",A1)');
-  assert.strictEqual(c('=ErRankCorrCom(A3,1,ErWeibull(5,2.1))'), '=ER.ERRANKCORRCOM(A3,1,ER.ERWEIBULL(5,2.1))');
-  assert.strictEqual(c('=ER.ERNORMAL(0,1)'), '=ER.ERNORMAL(0,1)', 'already converted');
+  assert.strictEqual(c('=ErNormal(0,1)'), '=PSA.NORMAL(0,1)');
+  assert.strictEqual(c('=ERNORMAL(0,1)+ergamma(1,2)'), '=PSA.NORMAL(0,1)+PSA.GAMMA(1,2)');
+  assert.strictEqual(c("='C:\\Program Files\\Ersatz\\ersatzdll.xll'!ErBeta(1,2)"), '=PSA.BETA(1,2)');
+  assert.strictEqual(c('=ErOutput("ErNormal(x)",A1)'), '=PSA.OUTPUT("ErNormal(x)",A1)');
+  assert.strictEqual(c('=ErRankCorrCom(A3,1,ErWeibull(5,2.1))'), '=PSA.RANKCORRCOM(A3,1,PSA.WEIBULL(5,2.1))');
+  assert.strictEqual(c('=PSA.NORMAL(0,1)'), '=PSA.NORMAL(0,1)', 'already converted');
   assert.strictEqual(c('=ERROR.TYPE(A1)+Err(1)'), '=ERROR.TYPE(A1)+Err(1)', 'other functions untouched');
   assert.strictEqual(c('plain text ErNormal(1)'), 'plain text ErNormal(1)');
+  // Workbooks made with the prototype add-in, which used =ER.ERNAME(...)
+  assert.strictEqual(c('=ER.ERNORMAL(0,1)*er.erbeta(2,3)'), '=PSA.NORMAL(0,1)*PSA.BETA(2,3)');
+  assert.strictEqual(c('=ER.EROUTPUT("ER.ERBETA(1,1)",ER.ERDIRICHLETCOM(A1,2,5))'), '=PSA.OUTPUT("ER.ERBETA(1,1)",PSA.DIRICHLETCOM(A1,2,5))');
+  assert.strictEqual(c('=ErChi2(3)+ER.ERCHI2(4)'), '=PSA.CHISQ(3)+PSA.CHISQ(4)', 'CHI2 would read as a cell reference');
+  assert.strictEqual(c('=ER.ERNOTAFUNCTION(1)'), '=ER.ERNOTAFUNCTION(1)', 'unknown names untouched');
+  assert.ok(Sg.hasLegacy('=ER.ERNORMAL(0,1)') && !Sg.hasLegacy('=PSA.NORMAL(0,1)'));
+  const p = Sg.convertMatrix([['=ER.ERDATAARRAY("a",B1)'], ['=ER.ERDATAARRAY("a",B1)']]);
+  assert.deepStrictEqual(p.formulas, [['=PSA.DATAARRAY("a",B1)'], ['']]);
   const m = Sg.convertMatrix([['=ErDataArray("a",B1)', 5], ['=ErDataArray("a",B1)', '=ErNormal(0,1)'], ['=ErDataArray("a",B1)', '=ErNormal(0,1)']]);
-  assert.deepStrictEqual(m.formulas, [['=ER.ERDATAARRAY("a",B1)', 5], ['', '=ER.ERNORMAL(0,1)'], ['', '=ER.ERNORMAL(0,1)']]);
+  assert.deepStrictEqual(m.formulas, [['=PSA.DATAARRAY("a",B1)', 5], ['', '=PSA.NORMAL(0,1)'], ['', '=PSA.NORMAL(0,1)']]);
   assert.strictEqual(m.cleared, 2);
 });
 test('the compiled path was used wherever it should be', () => {

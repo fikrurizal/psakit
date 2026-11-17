@@ -200,7 +200,7 @@
     if (res.R > 1 && res.outputs.length) h += `<p class="muted small">Showing run ${R} of ${res.R}. ${res.keepAll ? 'Writing results to a sheet includes every run.' : 'Only this run\'s iterations were kept, to save memory.'}</p>`;
     h += res.outputs.length ? '<div id="outs"></div>' : '';
     if (res.runOutputs.length) h += `<h2>Across runs</h2><div id="runouts"></div>`;
-    if (!res.outputs.length && !res.runOutputs.length) h += `<div class="empty"><strong>No outputs were recorded</strong>This run had no ER.EROUTPUT cells.</div>`;
+    if (!res.outputs.length && !res.runOutputs.length) h += `<div class="empty"><strong>No outputs were recorded</strong>This run had no PSA.OUTPUT cells.</div>`;
     if (res.outputs.length >= 2) h += `<div class="actions"><button class="btn" id="ceOpen">Cost-effectiveness analysis</button></div>`;
     h += `<h2>Save results</h2>
       <div class="stack small">
@@ -349,18 +349,18 @@
   async function writeResults() {
     const { rows, bold } = resultRows();
     try {
-      await host.writeSheet('Surrogate results', rows, { boldRows: bold });
-      $('saved').textContent = 'Wrote results to the sheet "Surrogate results".';
+      await host.writeSheet('PSAkit results', rows, { boldRows: bold });
+      $('saved').textContent = 'Wrote results to the sheet "PSAkit results".';
     } catch (e) { setAlert('Could not write the results sheet: ' + (e.message || e)); }
   }
   function downloadCsv() {
     const { rows } = resultRows();
     const blob = new Blob([rows.map((r) => r.map(csvCell).join(',')).join('\r\n')], { type: 'text/csv' });
     const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = 'surrogate-results.csv';
+    a.href = URL.createObjectURL(blob); a.download = 'psakit-results.csv';
     document.body.appendChild(a); a.click(); a.remove();
     setTimeout(() => URL.revokeObjectURL(a.href), 1000);
-    $('saved').textContent = 'Downloaded surrogate-results.csv. If nothing appeared, your version of Excel blocks downloads here, so use Write to a new sheet.';
+    $('saved').textContent = 'Downloaded psakit-results.csv. If nothing appeared, your version of Excel blocks downloads here, so use Write to a new sheet.';
   }
 
   // ---- Sensitivity -----------------------------------------------------------------------------
@@ -378,7 +378,7 @@
         <label class="field"><span>Output</span><select id="sOut">${allOuts.map((o) => `<option value="${o.id}" ${o.id === ui.sensId ? 'selected' : ''}>${esc(o.name)}</option>`).join('')}</select></label>
         <label class="field"><span>Measure</span><select id="sM">${Object.entries(MEASURES).map(([k, v]) => `<option value="${k}" ${k === (ui.measure || 'spearman') ? 'selected' : ''}>${esc(v)}</option>`).join('')}</select></label>
       </div>
-      <label class="check small" style="margin-top:8px"><input type="checkbox" id="sNamed" ${ui.namedOnly ? 'checked' : ''}><span>Only inputs named with ER.ERSENSINPUT</span></label>
+      <label class="check small" style="margin-top:8px"><input type="checkbox" id="sNamed" ${ui.namedOnly ? 'checked' : ''}><span>Only inputs named with PSA.SENSINPUT</span></label>
       <div id="sChart" style="margin-top:10px"></div>` : '<p class="muted">The last run recorded no outputs.</p>'}
       <h2>Moving inputs by set amounts</h2>
       <p class="small muted">These hold every other input at its mean and recalculate. They don't use the last run.</p>
@@ -406,7 +406,7 @@
         inputs = ui.namedOnly ? named : r.inputs.map((i) => ({ label: labelOf(i), values: i.values })).concat(named);
       }
       const box = $('sChart');
-      if (!inputs.length) { box.innerHTML = `<p class="muted small">${pick.kind === 'run' ? 'Across-run sensitivity needs inputs named with ER.ERRUNSENSINPUT.' : 'No named inputs. Wrap inputs in ER.ERSENSINPUT, or untick the box.'}</p>`; return; }
+      if (!inputs.length) { box.innerHTML = `<p class="muted small">${pick.kind === 'run' ? 'Across-run sensitivity needs inputs named with PSA.RUNSENSINPUT.' : 'No named inputs. Wrap inputs in PSA.SENSINPUT, or untick the box.'}</p>`; return; }
       const y = pick.o.values;
       const usable = inputs.filter((i) => Sg.stats.sd(Sg.stats.clean(i.values)) > 0);
       if (ui.measure === 'inputs') {
@@ -577,7 +577,7 @@
     $('scSheet').addEventListener('click', () => writeSens(() => [['Scenarios'], ['Scenario'].concat(r.outputs.map((o) => safeText(o.name))), ['All inputs at their means'].concat(r.base)].concat(r.rows.map((x) => [safeText(x.name)].concat(x.values)))));
   }
   async function writeSens(build) {
-    try { await host.writeSheet('Surrogate sensitivity', build().map((row) => row.map((v) => (typeof v === 'number' && !Number.isFinite(v) ? 'n/a' : v))), {}); $('sensSaved').textContent = 'Wrote this analysis to the sheet "Surrogate sensitivity".'; }
+    try { await host.writeSheet('PSAkit sensitivity', build().map((row) => row.map((v) => (typeof v === 'number' && !Number.isFinite(v) ? 'n/a' : v))), {}); $('sensSaved').textContent = 'Wrote this analysis to the sheet "PSAkit sensitivity".'; }
     catch (e) { setAlert('Could not write the sheet: ' + (e.message || e)); }
   }
 
@@ -586,9 +586,9 @@
     const sc = ui.scanned;
     main().innerHTML = `
       <div class="actions" style="margin-top:0"><button class="btn" id="scan">Scan workbook</button></div>
-      <p class="small muted" id="scanInfo" style="margin-top:6px">${sc ? `${sc.inputs.length} random inputs, ${sc.outputs.length} outputs, ${sc.runOutputs.length} per-run outputs, ${sc.masters.length} master functions.${sc.setItno ? ` ER.ERSETITNO sets ${sc.setItno} iterations.` : ''}` : 'Scan to list the inputs and outputs in this workbook.'}</p>
+      <p class="small muted" id="scanInfo" style="margin-top:6px">${sc ? `${sc.inputs.length} random inputs, ${sc.outputs.length} outputs, ${sc.runOutputs.length} per-run outputs, ${sc.masters.length} master functions.${sc.setItno ? ` PSA.SETITNO sets ${sc.setItno} iterations.` : ''}` : 'Scan to list the inputs and outputs in this workbook.'}</p>
       <h2>Runs</h2>
-      <label class="check"><input type="checkbox" id="multi" ${S.multi ? 'checked' : ''}><span>Multiple runs. Use this for microsimulation or age-group models. ER.ERRUNOUTPUT collects one value per run.</span></label>
+      <label class="check"><input type="checkbox" id="multi" ${S.multi ? 'checked' : ''}><span>Multiple runs. Use this for microsimulation or age-group models. PSA.RUNOUTPUT collects one value per run.</span></label>
       <h2>Random numbers</h2>
       <div class="stack">
         <label class="field"><span>Generator</span><select id="rng">${Object.entries(Sg.RNGS).map(([k, v]) => `<option value="${k}" ${k === S.rng ? 'selected' : ''}>${esc(v.label)}</option>`).join('')}</select></label>
@@ -608,8 +608,8 @@
       <div class="stack">
         <label class="field"><span>How to calculate each iteration</span><select id="speed"><option value="fast" ${S.speed !== 'excel' ? 'selected' : ''}>Compile the model (fastest)</option><option value="excel" ${S.speed === 'excel' ? 'selected' : ''}>Recalculate the workbook in Excel</option></select></label>
         <label class="check"><input type="checkbox" id="check" ${S.check ? 'checked' : ''}><span>Before each run, check compiled results against Excel on 5 sets of draws, and use Excel if they differ</span></label>
-        <label class="field"><span>ER.ERTRUNCATE tries before #NUM!</span><input type="number" id="maxTruncate" min="1" value="${S.maxTruncate}"></label>
-        <label class="check"><input type="checkbox" id="useSetItno" ${S.useSetItno ? 'checked' : ''}><span>Let ER.ERSETITNO set the number of iterations</span></label>
+        <label class="field"><span>PSA.TRUNCATE tries before #NUM!</span><input type="number" id="maxTruncate" min="1" value="${S.maxTruncate}"></label>
+        <label class="check"><input type="checkbox" id="useSetItno" ${S.useSetItno ? 'checked' : ''}><span>Let PSA.SETITNO set the number of iterations</span></label>
       </div>
       <h2>Conditional firing</h2>
       <label class="check"><input type="checkbox" id="condOn" ${S.conditionalOn ? 'checked' : ''}><span>Limit how often inputs draw a new value</span></label>
@@ -675,7 +675,7 @@
     }).join('');
     main().innerHTML = `
       <h2>Fit parameters by minimising a loss</h2>
-      <p class="small muted">Pair ER.ERMINIMIZE, which holds the parameters, with ER.ERMINIMIZERESULT, which holds the loss. Usually the loss is a sum of squared differences from your targets.</p>
+      <p class="small muted">Pair PSA.MINIMIZE, which holds the parameters, with PSA.MINIMIZERESULT, which holds the loss. Usually the loss is a sum of squared differences from your targets.</p>
       <label class="check"><input type="checkbox" id="oOn" ${S.optimOn ? 'checked' : ''}><span>Optimise on the next run</span></label>
       <div class="stack" style="margin-top:8px">
         <label class="field"><span>Optimiser name in the workbook</span>
@@ -693,7 +693,7 @@
         <div class="actions" style="margin-top:0"><button class="btn" id="oReset">Reset to defaults</button></div>
       </div>
       ${res ? (res.perIteration && !res.x ? `<h2>Result: ${esc(res.name)}</h2><p class="small">Fitted ${ui.res.completed.toLocaleString()} iterations with ${res.evals.toLocaleString()} loss evaluations. The fits are in your outputs on the Results tab.</p>` : `<h2>Best result: ${esc(res.name)}</h2>
-        <p class="small">${res.perIteration ? `Last iteration's fit, from ${res.evals.toLocaleString()} evaluations across the run.` : `${res.converged ? 'Stopped by its own criterion' : 'Stopped early'} after ${res.evals.toLocaleString()} evaluations. The best values are now in the ER.ERMINIMIZE cells.`}</p>
+        <p class="small">${res.perIteration ? `Last iteration's fit, from ${res.evals.toLocaleString()} evaluations across the run.` : `${res.converged ? 'Stopped by its own criterion' : 'Stopped early'} after ${res.evals.toLocaleString()} evaluations. The best values are now in the PSA.MINIMIZE cells.`}</p>
         <div class="scrollx"><table><tbody><tr><td>Loss</td><td>${esc(fmt(res.loss))}</td></tr>${(res.x || []).map((v, i) => `<tr><td>Parameter ${i + 1}</td><td>${esc(Sg.fmt(v))}</td></tr>`).join('')}</tbody></table></div>
         <h2>Best loss so far</h2><div id="oTrace"></div>`) : ''}`;
     $('oOn').addEventListener('change', (e) => { S.optimOn = e.target.checked; persist(); syncRunBar(); });
@@ -718,8 +718,8 @@
   // ---- Tools ---------------------------------------------------------------------------------
   function renderTools() {
     main().innerHTML = `
-      <h2>Convert old Ersatz workbooks</h2>
-      <p class="small muted">Changes formulas like =ErNormal(0,1) to =ER.ERNORMAL(0,1) throughout this workbook, then asks you to check them. Save an .xls file as .xlsx first, and keep a copy of the original.</p>
+      <h2>Convert Ersatz workbooks</h2>
+      <p class="small muted">Changes Ersatz formulas like =ErNormal(0,1), and formulas from the earlier prototype like =ER.ERNORMAL(0,1), to =PSA.NORMAL(0,1) throughout this workbook. Check them afterwards. Save an .xls file as .xlsx first, and keep a copy of the original.</p>
       <div class="actions" style="margin-top:0"><button class="btn" id="conv">Convert formulas</button></div>
       <div class="notice" id="convMsg" role="status"></div>
       <h2>Example model</h2>
@@ -742,7 +742,7 @@
       setAlert('');
       try {
         const r = await host.convertLegacy();
-        $('convMsg').textContent = r.changed ? `Converted ${r.changed} formulas${r.cleared ? `, and merged ${r.cleared} array cells into spilling formulas` : ''}. Check any #SPILL! cells, which need empty cells below them.` : 'Found no old Ersatz formulas in this workbook.';
+        $('convMsg').textContent = r.changed ? `Converted ${r.changed} formula${r.changed === 1 ? '' : 's'}${r.cleared ? `, and merged ${r.cleared} array cells into spilling formulas` : ''}. Check any #SPILL! cells, which need empty cells below them.` : 'Found no old Ersatz formulas in this workbook.';
       } catch (e) { setAlert('Could not convert formulas: ' + (e.message || e)); }
     });
     $('ex').addEventListener('click', async () => {
@@ -814,12 +814,12 @@
     selectTab('results');
     try {
       const sc = await runner.scan();
-      if (sc.legacy.length) setAlert(`This workbook has ${sc.legacy.length} old Ersatz formulas. Convert them on the Tools tab before running.`);
+      if (sc.legacy.length) setAlert(`This workbook has ${sc.legacy.length} Ersatz or prototype formulas. Convert them on the Tools tab before running.`);
     } catch (e) { /* workbook not ready yet; a run will report any problem */ }
   };
   if (globalThis.Office && Office.onReady) {
     Office.onReady((info) => {
-      if (!info || !info.host) { $('status').textContent = 'Open this page from inside Excel, using the Surrogate button on the Data tab.'; return; }
+      if (!info || !info.host) { $('status').textContent = 'Open this page from inside Excel, using the PSAkit button on the Data tab.'; return; }
       try { Office.addin.setStartupBehavior(Office.StartupBehavior.load); } catch (e) { /* older hosts */ }
       if (typeof Worker !== 'undefined') Sg.makeWorker = () => new Worker('../engine/worker.js');
       Sg.startPane(new Sg.ExcelHost());

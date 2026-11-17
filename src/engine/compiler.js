@@ -5,15 +5,15 @@
 //  3. What remains runs as plain JavaScript in dependency order, without crossing into Excel.
 // Anything the compiler isn't sure about raises Unsupported, and the run falls back to Excel recalculation.
 (function (Sg) {
-  class Unsupported extends Error { constructor(msg, cell, fn) { super(msg); this.cell = cell; this.fn = fn; this.unsupported = true; } }
+  class Unsupported extends Error { constructor(msg, cell, fn) { super(Sg.publicText(msg)); this.cell = cell; this.fn = Sg.publicText(fn); this.unsupported = true; } }
   Sg.Unsupported = Unsupported;
 
-  // Worksheet functions whose result doesn't depend on simulation state. The rest of the ER. set is live.
+  // Worksheet functions whose result doesn't depend on simulation state. The rest of the PSA. set is live.
   const ER_PURE = new Set(['ErOneOffCostDisc', 'ErAnnualCostDisc', 'ErLYDisc', 'ErHALYDisc', 'ErVersion', 'ErSortedArray']);
   const VOLATILE_DYNAMIC = new Set(['OFFSET', 'INDIRECT', 'CELL', 'INFO']);
   const STOCHASTIC_XL = new Set(['RAND', 'RANDBETWEEN', 'RANDARRAY']);
   const NS = Sg.NAMESPACE + '.';
-  const ER_BY_UPPER = () => Sg._erUpper || (Sg._erUpper = new Map(Sg.SPEC.map((s) => [s.name.toUpperCase(), s])));
+  const ER_BY_UPPER = () => Sg.SPEC_BY_EXCEL;
   const erSpec = (fn) => (fn.startsWith(NS) ? ER_BY_UPPER().get(fn.slice(NS.length)) : null);
 
   const keyOf = (s, r, c) => s * 17179869184 + r * 16384 + c;
@@ -152,10 +152,10 @@
     for (const c of queue) c.live = true;
     for (let i = 0; i < queue.length; i++) for (const d of rdeps.get(queue[i]) || []) if (!d.live) { d.live = true; queue.push(d); }
 
-    // Keep only what the ER. functions need.
+    // Keep only what the PSA. functions need.
     const needed = [];
     for (const c of allF) if (c.erRoot || c.opaque || c.dynamic) { c.need = true; needed.push(c); }
-    if (!needed.length) throw new Unsupported('No ER. functions found in this workbook.');
+    if (!needed.length) throw new Unsupported('No PSA. functions found in this workbook.');
     for (let i = 0; i < needed.length; i++) for (const d of needed[i].deps) if (d.live && !d.need) { d.need = true; needed.push(d); }
     const usesRand = needed.some((c) => c.usesRand);
 
@@ -630,7 +630,7 @@
         const e = cell.ast.t === 'call' && erSpec(cell.ast.fn) ? genEr(cell.ast, cell.s, true) : gen(cell.ast, cell.s);
         if (e.ty === 'r' || e.ty === 'a' || e.ty === 'm') {
           const fnm = cell.ast.t === 'call' ? cell.ast.fn : undefined;
-          reason(`Cell ${a} returns several values, and only ER. functions may spill in compiled models.`, a, fnm);
+          reason(`Cell ${a} returns several values, and only PSA. functions may spill in compiled models.`, a, fnm);
         }
         if (e.blank) { cell.ty = 'n'; code = `N[${sl}]=0;M[${sl}]=1;`; slotType.set(sl, 'n'); }
         else if (e.ty === 'n') { cell.ty = 'n'; slotType.set(sl, 'n'); code = `x=${e.c};N[${sl}]=x-x===0?x:NaN;`; }

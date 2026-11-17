@@ -38,7 +38,7 @@
     }
     get running() { return this.phase === 'iter' || this.phase === 'runEnd' || this.phase === 'frozen'; }
 
-    die(msg) { if (!this.fatal) this.fatal = msg; throw new ErNum(msg); }
+    die(msg) { msg = Sg.publicText(msg); if (!this.fatal) this.fatal = msg; throw new ErNum(msg); }
     u(key) {
       let s = this.streams.get(key);
       if (!s) { s = Sg.RNGS[this.settings.rng].make(Sg.hashSeed(this.masterSeed, this.salt === '' ? key : key + '@' + this.salt)); this.streams.set(key, s); }
@@ -49,7 +49,7 @@
     noteError(addr, fn) {
       const k = addr + '|' + fn;
       let e = this.errors.get(k);
-      if (!e) { e = { addr, fn, run: this.run, iteration: this.iteration, count: 0 }; this.errors.set(k, e); }
+      if (!e) { e = { addr, fn: Sg.publicText(fn), run: this.run, iteration: this.iteration, count: 0 }; this.errors.set(k, e); }
       e.count++;
     }
     rep(key) { return this.replay ? this.replay.get(key) : undefined; }
@@ -191,7 +191,7 @@
     report(addr, value) { this.reports.set(addr, { gen: this.gen, value }); }
 
     // Scanning a model and deterministic analysis both prime the engine. Results of the last run, which the sheet may
-    // be showing through ER.ERDATAARRAY and the statistical functions, must survive that.
+    // be showing through PSA.DATAARRAY and the statistical functions, must survive that.
     saveResultState() {
       const k = ['finished', 'accum', 'dataAt', 'dataArr', 'runDataArr', 'condStores', 'condRetr', 'minX', 'arrShape'], o = {};
       for (const x of k) o[x] = this[x];
@@ -567,7 +567,7 @@
       };
       F.ErRunno = () => (E.running ? E.run : 1);
       F.ErRunning = () => E.running;
-      F.ErVersion = () => 'Surrogate ' + Sg.VERSION;
+      F.ErVersion = () => 'PSAkit ' + Sg.VERSION;
 
       // Store and retrieve: a retrieve sees what was stored on the previous iteration, in either calc order.
       const put = (map, name, v) => {

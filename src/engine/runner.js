@@ -3,7 +3,7 @@
 // it gives the same answers as the workbook.
 (function (Sg) {
   const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-  const FORMULA_RE = /\bER\.ER[A-Z0-9]+\s*\(/i;
+  const FORMULA_RE = new RegExp(`\\b${Sg.NAMESPACE}\\.[A-Z][A-Z0-9]*\\s*\\(`, 'i');
 
   // Sheet order, not Excel's calculation order, so lists stay stable between runs.
   const addrKey = (a) => { const m = /^(.*)!([A-Z]+)(\d+)/.exec(a) || [null, a, '', 0]; return [m[1], +m[3], m[2].length, m[2]]; };
@@ -21,7 +21,7 @@
       this.E = engine; this.real = host; this.host = host; this.cancelled = false; this.active = false; this.opts = opts || {};
     }
     cancel() { this.cancelled = true; if (this.pool) this.pool.cancel(); }
-    fail(msg) { const e = new Error(msg); e.simFailure = true; throw e; }
+    fail(msg) { const e = new Error(Sg.publicText(msg)); e.simFailure = true; throw e; }
 
     async calc() {
       const p = this.host.calculate();
@@ -67,7 +67,7 @@
     // Excel never calls a function whose argument is an error, so an output downstream of a bad input is invisible
     // to the engine. Ersatz treats errors showing before a run as fatal, and so does this.
     async checkReporters(cells) {
-      const E = this.E, RE = /\bER\.(EROUTPUT|ERRUNOUTPUT|ERMINIMIZERESULT)\s*\(/i;
+      const E = this.E, RE = new RegExp(`\\b${Sg.NAMESPACE}\\.(OUTPUT|RUNOUTPUT|MINIMIZERESULT)\\s*\\(`, 'i');
       const silent = cells.filter((c) => RE.test(c.formula) && !E.reports.has(Sg.normAddr(c.address)));
       if (!silent.length) return;
       // In real Excel, custom function results can land after calculate() returns, so a cell may read #BUSY! for a
@@ -229,7 +229,7 @@
       };
       try {
         const scan = await this.scan();
-        if (!scan.cells.length) this.fail(scan.legacy.length ? `This workbook has ${scan.legacy.length} old Ersatz formulas. Convert them under Tools first.` : 'No ER. functions found. Add at least one random function and one ER.EROUTPUT, or insert the example model from Tools.');
+        if (!scan.cells.length) this.fail(scan.legacy.length ? `This workbook has ${scan.legacy.length} Ersatz or prototype formulas. Convert them under Tools first.` : 'No PSA. functions found. Add at least one random function and one PSA.OUTPUT, or insert the example model from Tools.');
         await real.setManual(true); manualSet = true;
         // Prime on the real workbook first: this finds bad parameters and duplicate names with their usual messages.
         E.beginPrime(opts.settings);
@@ -237,7 +237,7 @@
         E.finishPrime();
         const useOptim = !!(opts.optim && opts.optim.name);
         await this.checkReporters(scan.cells);
-        if (!E.outputsReg.size && !E.runOutputsReg.size && !useOptim) this.fail('No outputs to record. Wrap a result in ER.EROUTPUT("name", value).');
+        if (!E.outputsReg.size && !E.runOutputsReg.size && !useOptim) this.fail('No outputs to record. Wrap a result in PSA.OUTPUT("name", value).');
         let N = opts.iterations;
         const R0 = opts.runs || 1;
         if (E.setItno && E.settings.useSetItno) N = E.setItno;
@@ -281,8 +281,8 @@
         if (useOptim) {
           optStart = E.minStart.get(opts.optim.name);
           lossAddr = E.minLossAddr.get(opts.optim.name);
-          if (!optStart) this.fail(`No ER.ERMINIMIZE function is named "${opts.optim.name}".`);
-          if (!lossAddr) this.fail(`No ER.ERMINIMIZERESULT function is named "${opts.optim.name}".`);
+          if (!optStart) this.fail(`No PSA.MINIMIZE function is named "${opts.optim.name}".`);
+          if (!lossAddr) this.fail(`No PSA.MINIMIZERESULT function is named "${opts.optim.name}".`);
         }
         const ctx = {
           outAddrs: [...E.outputsReg.keys()],
@@ -391,7 +391,7 @@
         await this.calc();
         E.finishPrime();
         const outputs = [...E.outputsReg.entries()].map(([addr, r]) => ({ addr, name: r.name })).sort(byAddr((x) => x.addr));
-        if (!outputs.length) this.fail('No outputs to record. Wrap a result in ER.EROUTPUT("name", value).');
+        if (!outputs.length) this.fail('No outputs to record. Wrap a result in PSA.OUTPUT("name", value).');
         const addrs = outputs.map((o) => o.addr);
         const pass = async (overrides) => {
           E.beginFixed(overrides);

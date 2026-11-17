@@ -1,8 +1,8 @@
 {
   "functions": [
     {
-      "id": "ERBERNOULLI",
-      "name": "ERBERNOULLI",
+      "id": "BERNOULLI",
+      "name": "BERNOULLI",
       "description": "Random draw from a Bernoulli distribution: 1 with probability p, else 0.",
       "parameters": [
         {
@@ -22,8 +22,8 @@
       }
     },
     {
-      "id": "ERBETA",
-      "name": "ERBETA",
+      "id": "BETA",
+      "name": "BETA",
       "description": "Random draw from a Beta distribution on 0..1.",
       "parameters": [
         {
@@ -49,8 +49,8 @@
       }
     },
     {
-      "id": "ERBETA4",
-      "name": "ERBETA4",
+      "id": "BETA4",
+      "name": "BETA4",
       "description": "Random draw from a Beta distribution rescaled to min..max.",
       "parameters": [
         {
@@ -88,8 +88,8 @@
       }
     },
     {
-      "id": "ERBINOMIAL",
-      "name": "ERBINOMIAL",
+      "id": "BINOMIAL",
+      "name": "BINOMIAL",
       "description": "Random draw from a Binomial distribution.",
       "parameters": [
         {
@@ -115,8 +115,8 @@
       }
     },
     {
-      "id": "ERCHI2",
-      "name": "ERCHI2",
+      "id": "CHISQ",
+      "name": "CHISQ",
       "description": "Random draw from a Chi-square distribution with k degrees of freedom.",
       "parameters": [
         {
@@ -136,8 +136,8 @@
       }
     },
     {
-      "id": "ERDELAPORTE",
-      "name": "ERDELAPORTE",
+      "id": "DELAPORTE",
+      "name": "DELAPORTE",
       "description": "Random draw from a Delaporte distribution: Poisson(Gamma(alpha,beta)) + Poisson(gamma).",
       "parameters": [
         {
@@ -169,8 +169,8 @@
       }
     },
     {
-      "id": "ERDICE",
-      "name": "ERDICE",
+      "id": "DICE",
+      "name": "DICE",
       "description": "Random whole number from 1 to sides, inclusive.",
       "parameters": [
         {
@@ -190,8 +190,8 @@
       }
     },
     {
-      "id": "ERERLANG",
-      "name": "ERERLANG",
+      "id": "ERLANG",
+      "name": "ERLANG",
       "description": "Random draw from an Erlang distribution.",
       "parameters": [
         {
@@ -217,8 +217,8 @@
       }
     },
     {
-      "id": "EREXPONENTIAL",
-      "name": "EREXPONENTIAL",
+      "id": "EXPONENTIAL",
+      "name": "EXPONENTIAL",
       "description": "Random draw from an Exponential distribution with mean beta.",
       "parameters": [
         {
@@ -238,8 +238,8 @@
       }
     },
     {
-      "id": "ERGAMMA",
-      "name": "ERGAMMA",
+      "id": "GAMMA",
+      "name": "GAMMA",
       "description": "Random draw from a Gamma distribution with shape alpha and scale beta.",
       "parameters": [
         {
@@ -265,8 +265,8 @@
       }
     },
     {
-      "id": "ERGEOMETRIC",
-      "name": "ERGEOMETRIC",
+      "id": "GEOMETRIC",
+      "name": "GEOMETRIC",
       "description": "Random draw from a Geometric distribution, counted from 0.",
       "parameters": [
         {
@@ -286,8 +286,8 @@
       }
     },
     {
-      "id": "ERHYPERGEOMETRIC",
-      "name": "ERHYPERGEOMETRIC",
+      "id": "HYPERGEOMETRIC",
+      "name": "HYPERGEOMETRIC",
       "description": "Random draw from a Hypergeometric distribution.",
       "parameters": [
         {
@@ -319,8 +319,8 @@
       }
     },
     {
-      "id": "ERINVERSEGAUSSIAN",
-      "name": "ERINVERSEGAUSSIAN",
+      "id": "INVERSEGAUSSIAN",
+      "name": "INVERSEGAUSSIAN",
       "description": "Random draw from an Inverse Gaussian distribution.",
       "parameters": [
         {
@@ -346,8 +346,8 @@
       }
     },
     {
-      "id": "ERLOGISTIC",
-      "name": "ERLOGISTIC",
+      "id": "LOGISTIC",
+      "name": "LOGISTIC",
       "description": "Random draw from a Logistic distribution.",
       "parameters": [
         {
@@ -373,8 +373,8 @@
       }
     },
     {
-      "id": "ERLOGLOGISTIC",
-      "name": "ERLOGLOGISTIC",
+      "id": "LOGLOGISTIC",
+      "name": "LOGLOGISTIC",
       "description": "Random draw from a Log-logistic distribution.",
       "parameters": [
         {
@@ -400,8 +400,8 @@
       }
     },
     {
-      "id": "ERLOGNORMAL",
-      "name": "ERLOGNORMAL",
+      "id": "LOGNORMAL",
+      "name": "LOGNORMAL",
       "description": "Random draw from a Lognormal distribution, given its own mean and SD.",
       "parameters": [
         {
@@ -427,8 +427,8 @@
       }
     },
     {
-      "id": "ERLOGNORMAL2",
-      "name": "ERLOGNORMAL2",
+      "id": "LOGNORMAL2",
+      "name": "LOGNORMAL2",
       "description": "Random draw from a Lognormal distribution, given mu and sigma of the log.",
       "parameters": [
         {
@@ -454,8 +454,8 @@
       }
     },
     {
-      "id": "ERNEGBINOMIAL",
-      "name": "ERNEGBINOMIAL",
+      "id": "NEGBINOMIAL",
+      "name": "NEGBINOMIAL",
       "description": "Random draw from a Negative binomial distribution.",
       "parameters": [
         {
@@ -481,8 +481,8 @@
       }
     },
     {
-      "id": "ERNORMAL",
-      "name": "ERNORMAL",
+      "id": "NORMAL",
+      "name": "NORMAL",
       "description": "Random draw from a Normal distribution.",
       "parameters": [
         {
@@ -508,8 +508,8 @@
       }
     },
     {
-      "id": "ERPARETO",
-      "name": "ERPARETO",
+      "id": "PARETO",
+      "name": "PARETO",
       "description": "Random draw from a Pareto distribution.",
       "parameters": [
         {
@@ -535,8 +535,8 @@
       }
     },
     {
-      "id": "ERPEARSON5",
-      "name": "ERPEARSON5",
+      "id": "PEARSON5",
+      "name": "PEARSON5",
       "description": "Random draw from a Pearson V distribution.",
       "parameters": [
         {
@@ -562,8 +562,8 @@
       }
     },
     {
-      "id": "ERPEARSON6",
-      "name": "ERPEARSON6",
+      "id": "PEARSON6",
+      "name": "PEARSON6",
       "description": "Random draw from a Pearson VI distribution.",
       "parameters": [
         {
@@ -595,8 +595,8 @@
       }
     },
     {
-      "id": "ERPERT",
-      "name": "ERPERT",
+      "id": "PERT",
+      "name": "PERT",
       "description": "Random draw from a Beta-Pert distribution with minimum a, mode m and maximum b.",
       "parameters": [
         {
@@ -628,8 +628,8 @@
       }
     },
     {
-      "id": "ERPOISSON",
-      "name": "ERPOISSON",
+      "id": "POISSON",
+      "name": "POISSON",
       "description": "Random draw from a Poisson distribution.",
       "parameters": [
         {
@@ -649,8 +649,8 @@
       }
     },
     {
-      "id": "ERPOLYA",
-      "name": "ERPOLYA",
+      "id": "POLYA",
+      "name": "POLYA",
       "description": "Random draw from a Polya distribution: Poisson(Gamma(alpha,beta)).",
       "parameters": [
         {
@@ -676,8 +676,8 @@
       }
     },
     {
-      "id": "ERRAYLEIGH",
-      "name": "ERRAYLEIGH",
+      "id": "RAYLEIGH",
+      "name": "RAYLEIGH",
       "description": "Random draw from a Rayleigh distribution.",
       "parameters": [
         {
@@ -697,8 +697,8 @@
       }
     },
     {
-      "id": "ERRELATIVERISK",
-      "name": "ERRELATIVERISK",
+      "id": "RELATIVERISK",
+      "name": "RELATIVERISK",
       "description": "Random relative risk with lognormal spread, corrected so its mean equals RR.",
       "parameters": [
         {
@@ -724,8 +724,8 @@
       }
     },
     {
-      "id": "ERSTUDENTST",
-      "name": "ERSTUDENTST",
+      "id": "STUDENTST",
+      "name": "STUDENTST",
       "description": "Random draw from Student's t distribution.",
       "parameters": [
         {
@@ -745,8 +745,8 @@
       }
     },
     {
-      "id": "ERTRIANGLE",
-      "name": "ERTRIANGLE",
+      "id": "TRIANGLE",
+      "name": "TRIANGLE",
       "description": "Random draw from a Triangular distribution.",
       "parameters": [
         {
@@ -778,8 +778,8 @@
       }
     },
     {
-      "id": "ERUNIFORM01",
-      "name": "ERUNIFORM01",
+      "id": "UNIFORM01",
+      "name": "UNIFORM01",
       "description": "Random draw uniform between 0 and 1, exclusive.",
       "parameters": [],
       "result": {
@@ -792,8 +792,8 @@
       }
     },
     {
-      "id": "ERUNIFORM",
-      "name": "ERUNIFORM",
+      "id": "UNIFORM",
+      "name": "UNIFORM",
       "description": "Random draw uniform between min and max, exclusive.",
       "parameters": [
         {
@@ -819,8 +819,8 @@
       }
     },
     {
-      "id": "ERWEIBULL",
-      "name": "ERWEIBULL",
+      "id": "WEIBULL",
+      "name": "WEIBULL",
       "description": "Random draw from a Weibull distribution. alpha is scale and beta is shape, the reverse of Excel.",
       "parameters": [
         {
@@ -846,8 +846,8 @@
       }
     },
     {
-      "id": "EREMPIRICAL",
-      "name": "EREMPIRICAL",
+      "id": "EMPIRICAL",
+      "name": "EMPIRICAL",
       "description": "Random draw from a distribution you define with x values and weights p.",
       "parameters": [
         {
@@ -885,8 +885,8 @@
       }
     },
     {
-      "id": "ERSURVIVAL",
-      "name": "ERSURVIVAL",
+      "id": "SURVIVAL",
+      "name": "SURVIVAL",
       "description": "Random remaining survival time from conditional failure probabilities, given survival to time ct.",
       "parameters": [
         {
@@ -924,9 +924,9 @@
       }
     },
     {
-      "id": "ERSURVIVAL2",
-      "name": "ERSURVIVAL2",
-      "description": "As ErSurvival, using your own uniform draw rnd, so two arms can share one draw.",
+      "id": "SURVIVAL2",
+      "name": "SURVIVAL2",
+      "description": "As PSA.SURVIVAL, using your own uniform draw rnd, so two arms can share one draw.",
       "parameters": [
         {
           "name": "name",
@@ -969,8 +969,8 @@
       }
     },
     {
-      "id": "ERNONPARAM",
-      "name": "ERNONPARAM",
+      "id": "NONPARAM",
+      "name": "NONPARAM",
       "description": "Master for non-parametric bootstrapping. Returns its name.",
       "parameters": [
         {
@@ -1002,9 +1002,9 @@
       }
     },
     {
-      "id": "ERNONPARAMCOM",
-      "name": "ERNONPARAMCOM",
-      "description": "Bootstrapped value for one record and field. Link name to the ErNonparam cell.",
+      "id": "NONPARAMCOM",
+      "name": "NONPARAMCOM",
+      "description": "Bootstrapped value for one record and field. Link name to the PSA.NONPARAM cell.",
       "parameters": [
         {
           "name": "name",
@@ -1040,8 +1040,8 @@
       }
     },
     {
-      "id": "ERRANDOMISE",
-      "name": "ERRANDOMISE",
+      "id": "RANDOMISE",
+      "name": "RANDOMISE",
       "description": "Master for a randomisation test. Returns its name.",
       "parameters": [
         {
@@ -1073,9 +1073,9 @@
       }
     },
     {
-      "id": "ERRANDOMISECOM",
-      "name": "ERRANDOMISECOM",
-      "description": "Reshuffled value for one record and field. Link name to the ErRandomise cell.",
+      "id": "RANDOMISECOM",
+      "name": "RANDOMISECOM",
+      "description": "Reshuffled value for one record and field. Link name to the PSA.RANDOMISE cell.",
       "parameters": [
         {
           "name": "name",
@@ -1111,8 +1111,8 @@
       }
     },
     {
-      "id": "ERMULTINOMIAL",
-      "name": "ERMULTINOMIAL",
+      "id": "MULTINOMIAL",
+      "name": "MULTINOMIAL",
       "description": "Master for a Multinomial distribution. Returns its name.",
       "parameters": [
         {
@@ -1144,8 +1144,8 @@
       }
     },
     {
-      "id": "ERMULTINOMIALCOM",
-      "name": "ERMULTINOMIALCOM",
+      "id": "MULTINOMIALCOM",
+      "name": "MULTINOMIALCOM",
       "description": "Multinomial draw for one category. Draws across categories sum to N.",
       "parameters": [
         {
@@ -1176,8 +1176,8 @@
       }
     },
     {
-      "id": "ERDIRICHLET",
-      "name": "ERDIRICHLET",
+      "id": "DIRICHLET",
+      "name": "DIRICHLET",
       "description": "Master for a Dirichlet distribution. Returns its name.",
       "parameters": [
         {
@@ -1209,8 +1209,8 @@
       }
     },
     {
-      "id": "ERDIRICHLETCOM",
-      "name": "ERDIRICHLETCOM",
+      "id": "DIRICHLETCOM",
+      "name": "DIRICHLETCOM",
       "description": "Dirichlet draw for one category. Draws across categories sum to 1.",
       "parameters": [
         {
@@ -1241,8 +1241,8 @@
       }
     },
     {
-      "id": "ERCORRNORMAL",
-      "name": "ERCORRNORMAL",
+      "id": "CORRNORMAL",
+      "name": "CORRNORMAL",
       "description": "Master for correlated Normals. C is a lower-triangle correlation or covariance matrix.",
       "parameters": [
         {
@@ -1280,9 +1280,9 @@
       }
     },
     {
-      "id": "ERCORRNORMALCOM",
-      "name": "ERCORRNORMALCOM",
-      "description": "One correlated Normal draw. Link name to the ErCorrNormal cell.",
+      "id": "CORRNORMALCOM",
+      "name": "CORRNORMALCOM",
+      "description": "One correlated Normal draw. Link name to the PSA.CORRNORMAL cell.",
       "parameters": [
         {
           "name": "name",
@@ -1318,8 +1318,8 @@
       }
     },
     {
-      "id": "ERRANKCORR",
-      "name": "ERRANKCORR",
+      "id": "RANKCORR",
+      "name": "RANKCORR",
       "description": "Master for rank-correlated distributions. C is a lower-triangle correlation matrix.",
       "parameters": [
         {
@@ -1351,8 +1351,8 @@
       }
     },
     {
-      "id": "ERRANKCORRCOM",
-      "name": "ERRANKCORRCOM",
+      "id": "RANKCORRCOM",
+      "name": "RANKCORRCOM",
       "description": "One rank-correlated draw. func must be an Ersatz random function embedded directly in this formula.",
       "parameters": [
         {
@@ -1383,8 +1383,8 @@
       }
     },
     {
-      "id": "ERDIRICHLETCORR",
-      "name": "ERDIRICHLETCORR",
+      "id": "DIRICHLETCORR",
+      "name": "DIRICHLETCORR",
       "description": "Master for correlated Dirichlet distributions.",
       "parameters": [
         {
@@ -1416,8 +1416,8 @@
       }
     },
     {
-      "id": "ERDIRICHLETCORRIN",
-      "name": "ERDIRICHLETCORRIN",
+      "id": "DIRICHLETCORRIN",
+      "name": "DIRICHLETCORRIN",
       "description": "Parameters of correlated Dirichlet distribution num.",
       "parameters": [
         {
@@ -1448,8 +1448,8 @@
       }
     },
     {
-      "id": "ERDIRICHLETCORROUT",
-      "name": "ERDIRICHLETCORROUT",
+      "id": "DIRICHLETCORROUT",
+      "name": "DIRICHLETCORROUT",
       "description": "Draws for correlated Dirichlet distribution num. Spills across its categories.",
       "parameters": [
         {
@@ -1474,8 +1474,8 @@
       }
     },
     {
-      "id": "ERMULTINOMIALCORR",
-      "name": "ERMULTINOMIALCORR",
+      "id": "MULTINOMIALCORR",
+      "name": "MULTINOMIALCORR",
       "description": "Master for correlated Multinomial distributions.",
       "parameters": [
         {
@@ -1507,8 +1507,8 @@
       }
     },
     {
-      "id": "ERMULTINOMIALCORRIN",
-      "name": "ERMULTINOMIALCORRIN",
+      "id": "MULTINOMIALCORRIN",
+      "name": "MULTINOMIALCORRIN",
       "description": "Parameters of correlated Multinomial distribution num.",
       "parameters": [
         {
@@ -1539,8 +1539,8 @@
       }
     },
     {
-      "id": "ERMULTINOMIALCORROUT",
-      "name": "ERMULTINOMIALCORROUT",
+      "id": "MULTINOMIALCORROUT",
+      "name": "MULTINOMIALCORROUT",
       "description": "Draws for correlated Multinomial distribution num. Spills across its categories.",
       "parameters": [
         {
@@ -1565,8 +1565,8 @@
       }
     },
     {
-      "id": "EROUTPUT",
-      "name": "EROUTPUT",
+      "id": "OUTPUT",
+      "name": "OUTPUT",
       "description": "Records value on each iteration and reports it in the results. Returns value.",
       "parameters": [
         {
@@ -1591,8 +1591,8 @@
       }
     },
     {
-      "id": "ERRUNOUTPUT",
-      "name": "ERRUNOUTPUT",
+      "id": "RUNOUTPUT",
+      "name": "RUNOUTPUT",
       "description": "Records value once at the end of each run. Returns value.",
       "parameters": [
         {
@@ -1617,8 +1617,8 @@
       }
     },
     {
-      "id": "ERSENSINPUT",
-      "name": "ERSENSINPUT",
+      "id": "SENSINPUT",
+      "name": "SENSINPUT",
       "description": "Names an input for sensitivity analysis. Returns value.",
       "parameters": [
         {
@@ -1643,8 +1643,8 @@
       }
     },
     {
-      "id": "ERRUNSENSINPUT",
-      "name": "ERRUNSENSINPUT",
+      "id": "RUNSENSINPUT",
+      "name": "RUNSENSINPUT",
       "description": "Names an input for sensitivity analysis across runs. Returns value.",
       "parameters": [
         {
@@ -1669,8 +1669,8 @@
       }
     },
     {
-      "id": "ERDATA",
-      "name": "ERDATA",
+      "id": "DATA",
+      "name": "DATA",
       "description": "After the run, returns the value inp had on iteration itnum. Returns 0 during the run.",
       "parameters": [
         {
@@ -1695,8 +1695,8 @@
       }
     },
     {
-      "id": "ERDATAARRAY",
-      "name": "ERDATAARRAY",
+      "id": "DATAARRAY",
+      "name": "DATAARRAY",
       "description": "After the run, spills innum from every iteration down a column.",
       "parameters": [
         {
@@ -1721,8 +1721,8 @@
       }
     },
     {
-      "id": "ERRUNDATAARRAY",
-      "name": "ERRUNDATAARRAY",
+      "id": "RUNDATAARRAY",
+      "name": "RUNDATAARRAY",
       "description": "After all runs, spills value from the end of every run down a column.",
       "parameters": [
         {
@@ -1747,8 +1747,8 @@
       }
     },
     {
-      "id": "ERMINIMIZE",
-      "name": "ERMINIMIZE",
+      "id": "MINIMIZE",
+      "name": "MINIMIZE",
       "description": "Parameters being optimised, starting from range ir. Spills to the same shape as ir.",
       "parameters": [
         {
@@ -1773,9 +1773,9 @@
       }
     },
     {
-      "id": "ERMINIMIZERESULT",
-      "name": "ERMINIMIZERESULT",
-      "description": "Loss value the optimiser minimises. Must share its name with ErMinimize.",
+      "id": "MINIMIZERESULT",
+      "name": "MINIMIZERESULT",
+      "description": "Loss value the optimiser minimises. Must share its name with PSA.MINIMIZE.",
       "parameters": [
         {
           "name": "name",
@@ -1799,8 +1799,8 @@
       }
     },
     {
-      "id": "ERONEOFFCOSTDISC",
-      "name": "ERONEOFFCOSTDISC",
+      "id": "ONEOFFCOSTDISC",
+      "name": "ONEOFFCOSTDISC",
       "description": "Cost co at time cy, discounted to base year by at fractional rate r.",
       "parameters": [
         {
@@ -1837,8 +1837,8 @@
       }
     },
     {
-      "id": "ERANNUALCOSTDISC",
-      "name": "ERANNUALCOSTDISC",
+      "id": "ANNUALCOSTDISC",
+      "name": "ANNUALCOSTDISC",
       "description": "Annual cost co from sy to ly, discounted to base year by at fractional rate r.",
       "parameters": [
         {
@@ -1881,8 +1881,8 @@
       }
     },
     {
-      "id": "ERLYDISC",
-      "name": "ERLYDISC",
+      "id": "LYDISC",
+      "name": "LYDISC",
       "description": "Life years from sy to ly, discounted to base year by at fractional rate r.",
       "parameters": [
         {
@@ -1919,8 +1919,8 @@
       }
     },
     {
-      "id": "ERHALYDISC",
-      "name": "ERHALYDISC",
+      "id": "HALYDISC",
+      "name": "HALYDISC",
       "description": "Health-adjusted life years from sy to ly, using weights ha by single year of age ag.",
       "parameters": [
         {
@@ -1969,8 +1969,8 @@
       }
     },
     {
-      "id": "ERFIXED",
-      "name": "ERFIXED",
+      "id": "FIXED",
+      "name": "FIXED",
       "description": "Returns element num of range x, wrapping around past the end.",
       "parameters": [
         {
@@ -1996,8 +1996,8 @@
       }
     },
     {
-      "id": "ERCONDITIONAL",
-      "name": "ERCONDITIONAL",
+      "id": "CONDITIONAL",
+      "name": "CONDITIONAL",
       "description": "Returns value when con is TRUE. Otherwise holds the previous result.",
       "parameters": [
         {
@@ -2023,8 +2023,8 @@
       }
     },
     {
-      "id": "ERTRUNCATE",
-      "name": "ERTRUNCATE",
+      "id": "TRUNCATE",
+      "name": "TRUNCATE",
       "description": "Resamples an embedded random function until it falls between min and max.",
       "parameters": [
         {
@@ -2056,8 +2056,8 @@
       }
     },
     {
-      "id": "ERITERATION",
-      "name": "ERITERATION",
+      "id": "ITERATION",
+      "name": "ITERATION",
       "description": "Number of the current iteration.",
       "parameters": [],
       "result": {
@@ -2070,8 +2070,8 @@
       }
     },
     {
-      "id": "ERSETITNO",
-      "name": "ERSETITNO",
+      "id": "SETITNO",
+      "name": "SETITNO",
       "description": "Sets the number of iterations from the worksheet.",
       "parameters": [
         {
@@ -2090,8 +2090,8 @@
       }
     },
     {
-      "id": "ERRUNNO",
-      "name": "ERRUNNO",
+      "id": "RUNNO",
+      "name": "RUNNO",
       "description": "Number of the current run.",
       "parameters": [],
       "result": {
@@ -2104,8 +2104,8 @@
       }
     },
     {
-      "id": "ERRUNNING",
-      "name": "ERRUNNING",
+      "id": "RUNNING",
+      "name": "RUNNING",
       "description": "TRUE while a simulation is running.",
       "parameters": [],
       "result": {
@@ -2118,8 +2118,8 @@
       }
     },
     {
-      "id": "ERVERSION",
-      "name": "ERVERSION",
+      "id": "VERSION",
+      "name": "VERSION",
       "description": "Version of this add-in.",
       "parameters": [],
       "result": {
@@ -2131,8 +2131,8 @@
       }
     },
     {
-      "id": "ERSTORE",
-      "name": "ERSTORE",
+      "id": "STORE",
+      "name": "STORE",
       "description": "Stores a number for the next iteration. Returns name.",
       "parameters": [
         {
@@ -2157,9 +2157,9 @@
       }
     },
     {
-      "id": "ERRETRIEVE",
-      "name": "ERRETRIEVE",
-      "description": "Number stored by ErStore on the previous iteration. 0 on the first.",
+      "id": "RETRIEVE",
+      "name": "RETRIEVE",
+      "description": "Number stored by PSA.STORE on the previous iteration. 0 on the first.",
       "parameters": [
         {
           "name": "name",
@@ -2178,8 +2178,8 @@
       }
     },
     {
-      "id": "ERSTOREARRAY",
-      "name": "ERSTOREARRAY",
+      "id": "STOREARRAY",
+      "name": "STOREARRAY",
       "description": "Stores a range for the next iteration. Returns name.",
       "parameters": [
         {
@@ -2204,9 +2204,9 @@
       }
     },
     {
-      "id": "ERRETRIEVEARRAY",
-      "name": "ERRETRIEVEARRAY",
-      "description": "Range stored by ErStoreArray on the previous iteration.",
+      "id": "RETRIEVEARRAY",
+      "name": "RETRIEVEARRAY",
+      "description": "Range stored by PSA.STOREARRAY on the previous iteration.",
       "parameters": [
         {
           "name": "name",
@@ -2225,8 +2225,8 @@
       }
     },
     {
-      "id": "ERCONDSTOREARRAY",
-      "name": "ERCONDSTOREARRAY",
+      "id": "CONDSTOREARRAY",
+      "name": "CONDSTOREARRAY",
       "description": "Stores a range when condition is TRUE. mode 0 replaces, 1 multiplies, 2 adds.",
       "parameters": [
         {
@@ -2263,9 +2263,9 @@
       }
     },
     {
-      "id": "ERCONDRETRIEVEARRAY",
-      "name": "ERCONDRETRIEVEARRAY",
-      "description": "Range stored by ErCondStoreArray, updated when condition is TRUE.",
+      "id": "CONDRETRIEVEARRAY",
+      "name": "CONDRETRIEVEARRAY",
+      "description": "Range stored by PSA.CONDSTOREARRAY, updated when condition is TRUE.",
       "parameters": [
         {
           "name": "name",
@@ -2290,8 +2290,8 @@
       }
     },
     {
-      "id": "ERSORTEDARRAY",
-      "name": "ERSORTEDARRAY",
+      "id": "SORTEDARRAY",
+      "name": "SORTEDARRAY",
       "description": "Sorts a range. mode 1 is ascending, anything else descending.",
       "parameters": [
         {
@@ -2316,8 +2316,8 @@
       }
     },
     {
-      "id": "ERMEAN",
-      "name": "ERMEAN",
+      "id": "MEAN",
+      "name": "MEAN",
       "description": "At the end of a run, the mean of inp across its iterations.",
       "parameters": [
         {
@@ -2336,8 +2336,8 @@
       }
     },
     {
-      "id": "ERSTDEV",
-      "name": "ERSTDEV",
+      "id": "STDEV",
+      "name": "STDEV",
       "description": "At the end of a run, the standard deviation of inp across its iterations.",
       "parameters": [
         {
@@ -2356,8 +2356,8 @@
       }
     },
     {
-      "id": "ERMIN",
-      "name": "ERMIN",
+      "id": "MIN",
+      "name": "MIN",
       "description": "At the end of a run, the lowest value of inp across its iterations.",
       "parameters": [
         {
@@ -2376,8 +2376,8 @@
       }
     },
     {
-      "id": "ERMAX",
-      "name": "ERMAX",
+      "id": "MAX",
+      "name": "MAX",
       "description": "At the end of a run, the highest value of inp across its iterations.",
       "parameters": [
         {
@@ -2396,8 +2396,8 @@
       }
     },
     {
-      "id": "ERTOTAL",
-      "name": "ERTOTAL",
+      "id": "TOTAL",
+      "name": "TOTAL",
       "description": "At the end of a run, the sum of inp across its iterations.",
       "parameters": [
         {
@@ -2416,8 +2416,8 @@
       }
     },
     {
-      "id": "ERCORRELATION",
-      "name": "ERCORRELATION",
+      "id": "CORRELATION",
+      "name": "CORRELATION",
       "description": "At the end of a run, the Pearson correlation of X and Y across its iterations.",
       "parameters": [
         {
@@ -2442,8 +2442,8 @@
       }
     },
     {
-      "id": "ERPERCENTILE",
-      "name": "ERPERCENTILE",
+      "id": "PERCENTILE",
+      "name": "PERCENTILE",
       "description": "At the end of a run, percentile perc (0 to 100) of inp across its iterations.",
       "parameters": [
         {

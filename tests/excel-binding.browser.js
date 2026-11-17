@@ -25,7 +25,7 @@ window.__hostileModel = () => {
     two: { a: bad, b: bad, outputs: [bad], base: [1], xs: [0, 1], ys: [0, 1], grid: [[[0], [1]], [[1], [null]]] },
     scen: { outputs: [bad], base: [1], rows: [{ name: bad, values: [null] }] } };
 };
-window.__isDialog = window.name === 'surrogate-dialog';
+window.__isDialog = window.name === 'psakit-dialog';
 window.Office = {
   StartupBehavior: { load: 'load' }, addin: { setStartupBehavior() { window.__startup = true; } },
   EventType: { DialogMessageReceived: 'msg', DialogEventReceived: 'evt', DialogParentMessageReceived: 'parent' },
@@ -33,7 +33,7 @@ window.Office = {
   context: { requirements: { isSetSupported: () => true }, ui: {
     // A stand-in for Excel's dialog: a real page in an iframe, joined to the pane only by text messages.
     displayDialogAsync(url, opts, cb) {
-      const f = document.createElement('iframe'); f.name = 'surrogate-dialog'; f.id = 'dlg'; f.style.cssText = 'position:fixed;left:0;top:0;width:1000px;height:800px;background:white;z-index:50'; f.src = url;
+      const f = document.createElement('iframe'); f.name = 'psakit-dialog'; f.id = 'dlg'; f.style.cssText = 'position:fixed;left:0;top:0;width:1000px;height:800px;background:white;z-index:50'; f.src = url;
       document.body.appendChild(f);
       const dialog = { handlers: {}, addEventHandler(t, h) { this.handlers[t] = h; }, messageChild(m) { window.__dialogBytes = Math.max(window.__dialogBytes || 0, m.length); f.contentWindow.__parentHandler({ message: m }); }, close() { f.remove(); } };
       window.__dialog = dialog;
@@ -157,7 +157,7 @@ window.Excel = {
   // Write results
   await p.click('#toSheet');
   await p.waitForFunction(() => /Wrote results/.test((document.getElementById('saved') || {}).textContent || ''));
-  const head = await p.evaluate(() => [window.__X.sheet('Surrogate results').get('A1'), window.__X.sheet('Surrogate results').get('B1')]);
+  const head = await p.evaluate(() => [window.__X.sheet('PSAkit results').get('A1'), window.__X.sheet('PSAkit results').get('B1')]);
   assert.deepStrictEqual(head, ['Output', 'Mean']);
 
   // ---- Saved report: the real file, opened on its own with no connection to anything else.
@@ -236,7 +236,7 @@ window.Excel = {
   console.log('report and live window ok');
 
   // Error path: a #NUM! on one cell aborts through the real wrapper and reports the cell
-  await p.evaluate(() => { window.__X.set('Example model!B4', '=ER.ERBETA(-1,880)'); window.__X.parsed.clear(); });
+  await p.evaluate(() => { window.__X.set('Example model!B4', '=PSA.BETA(-1,880)'); window.__X.parsed.clear(); });
   await p.click('#run');
   await p.waitForFunction(() => /^Run failed/.test(document.getElementById('status').textContent), null, { timeout: 30000 });
   assert.match(await p.textContent('#alert'), /#(NUM|VALUE)!/);
@@ -247,7 +247,7 @@ window.Excel = {
   await p.click('[data-tab=tools]'); await p.click('#conv');
   await p.waitForFunction(() => /Converted/.test(document.getElementById('convMsg').textContent));
   const conv = await p.evaluate(() => [...window.__X.sheet('Old').entries()]);
-  assert.deepStrictEqual(Object.fromEntries(conv), { A1: '=ER.ERNORMAL(10,1)', B1: '=ER.EROUTPUT("o",A1)', D1: '=ER.ERDATAARRAY("d",A1)' });
+  assert.deepStrictEqual(Object.fromEntries(conv), { A1: '=PSA.NORMAL(10,1)', B1: '=PSA.OUTPUT("o",A1)', D1: '=PSA.DATAARRAY("d",A1)' });
   await p.click('#run');
   await p.waitForFunction(() => /^Finished/.test(document.getElementById('status').textContent), null, { timeout: 30000 });
 

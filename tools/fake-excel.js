@@ -81,7 +81,7 @@
     constructor(engine, opts) {
       this.E = engine; this.sheets = new Map(); this.parsed = new Map(); this.values = new Map(); this.spillFrom = new Map();
       this.opts = Object.assign({ shuffle: true, late: 0 }, opts);
-      this.label = 'the simulated workbook'; this.calcs = 0; this.manual = false; this.byUpper = new Map(Sg.SPEC.map((s) => [s.name.toUpperCase(), s.name]));
+      this.label = 'the simulated workbook'; this.calcs = 0; this.manual = false; this.byUpper = new Map(Sg.SPEC.map((s) => [Sg.excelName(s.name), s.name]));
     }
     sheet(name) { if (!this.sheets.has(name)) this.sheets.set(name, new Map()); return this.sheets.get(name); }
     set(addr, v) { const [s, c] = addr.split('!'); this.sheet(s).set(c, v); this.parsed.delete(addr); }
@@ -152,7 +152,7 @@
           return c ? this.ev(n.args[1], sheet, addr) : n.args[2] ? this.ev(n.args[2], sheet, addr) : false;
         }
         const args = n.args.map((a) => this.ev(a, sheet, addr));
-        for (const a of args) { if (a instanceof XlError) throw a; if (Array.isArray(a)) for (const row of a) for (const v of row) if (v instanceof XlError && n.fn.startsWith('ER.')) throw v; }
+        for (const a of args) { if (a instanceof XlError) throw a; if (Array.isArray(a)) for (const row of a) for (const v of row) if (v instanceof XlError && n.fn.startsWith(Sg.NAMESPACE + '.')) throw v; }
         if (n.fn.startsWith(Sg.NAMESPACE + '.')) {
           const name = this.byUpper.get(n.fn.slice(Sg.NAMESPACE.length + 1));
           if (!name) throw new XlError('#NAME?');

@@ -12,7 +12,7 @@ async function run(cells, opts) {
   return { R, res };
 }
 const build = (res, more) => Sg.buildReportModel(Object.assign({ res, title: 'T', note: 'n', labelOf: (i) => i.fn + i.addr, detLabel: (a) => a }, more));
-const CELLS = { A1: '=ER.ERNORMAL(10,2)', A2: '=ER.ERGAMMA(3,1.5)', B1: '=ER.EROUTPUT("sum",A1+A2)', B2: '=ER.EROUTPUT("gain",3*A1-A2)' };
+const CELLS = { A1: '=PSA.NORMAL(10,2)', A2: '=PSA.GAMMA(3,1.5)', B1: '=PSA.OUTPUT("sum",A1+A2)', B2: '=PSA.OUTPUT("gain",3*A1-A2)' };
 
 test('summaries, histogram and running mean are those of the recorded values', async () => {
   const { res } = await run(CELLS);
@@ -57,7 +57,7 @@ test('cost-effectiveness figures match a hand calculation', async () => {
 });
 
 test('a failed output carries no statistics and the failures are listed', async () => {
-  const { res } = await run({ A1: '=ER.ERUNIFORM(-1,1)', B1: '=ER.EROUTPUT("root",SQRT(A1))', B2: '=ER.EROUTPUT("fine",A1)' }, { iterations: 200 });
+  const { res } = await run({ A1: '=PSA.UNIFORM(-1,1)', B1: '=PSA.OUTPUT("root",SQRT(A1))', B2: '=PSA.OUTPUT("fine",A1)' }, { iterations: 200 });
   const m = build(res), r = m.outputs.find((x) => x.name === 'root');
   assert.ok(r.s.failed > 0); assert.strictEqual(r.s.mean, null);
   assert.ok(m.outputs.find((x) => x.name === 'fine').s.mean !== null);
@@ -66,7 +66,7 @@ test('a failed output carries no statistics and the failures are listed', async 
 
 test('the model is plain JSON, and the file keeps names inert', async () => {
   const bad = '</script><img src=x onerror=alert(1)>';
-  const { res } = await run({ A1: '=ER.ERNORMAL(10,2)', B1: `=ER.EROUTPUT("${bad}",A1)` }, { iterations: 100 });
+  const { res } = await run({ A1: '=PSA.NORMAL(10,2)', B1: `=PSA.OUTPUT("${bad}",A1)` }, { iterations: 100 });
   const m = build(res, { title: bad, decimals: 2 });
   assert.deepStrictEqual(JSON.parse(JSON.stringify(m)), m);
   const html = Sg.reportHtml(m, { css: 'body{}', js: 'var x="</script>";' });

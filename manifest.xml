@@ -4,15 +4,15 @@
            xmlns:bt="http://schemas.microsoft.com/office/officeappbasictypes/1.0"
            xmlns:ov="http://schemas.microsoft.com/office/taskpaneappversionoverrides"
            xsi:type="TaskPaneApp">
-  <Id>6f1d2c0a-8e57-4b7a-9a3e-2d4c1b7e9f10</Id>
-  <Version>1.0.0.0</Version>
-  <ProviderName>Surrogate (unofficial)</ProviderName>
+  <Id>ad7d50a6-816f-46d6-bab6-61700550e82b</Id>
+  <Version>0.1.0.0</Version>
+  <ProviderName>PSAkit</ProviderName>
   <DefaultLocale>en-US</DefaultLocale>
-  <DisplayName DefaultValue="Surrogate"/>
-  <Description DefaultValue="Monte Carlo simulation, bootstrapping and microsimulation in Excel, with functions compatible with Ersatz formulas."/>
-  <IconUrl DefaultValue="https://fikrurizal.github.io/surrogate/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://fikrurizal.github.io/surrogate/assets/icon-64.png"/>
-  <SupportUrl DefaultValue="https://fikrurizal.github.io/surrogate/README.md"/>
+  <DisplayName DefaultValue="PSAkit"/>
+  <Description DefaultValue="Probabilistic sensitivity analysis and Monte Carlo simulation for Excel decision models. Implements the Ersatz function set from its public documentation; not affiliated with EpiGear."/>
+  <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
+  <SupportUrl DefaultValue="https://localhost:3000/README.md"/>
   <AppDomains>
     <AppDomain>https://appsforoffice.microsoft.com</AppDomain>
   </AppDomains>
@@ -25,7 +25,7 @@
     </Sets>
   </Requirements>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://fikrurizal.github.io/surrogate/src/taskpane/taskpane.html"/>
+    <SourceLocation DefaultValue="https://localhost:3000/src/taskpane/taskpane.html"/>
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
@@ -57,14 +57,14 @@
           <FunctionFile resid="Taskpane.Url"/>
           <ExtensionPoint xsi:type="PrimaryCommandSurface">
             <OfficeTab id="TabData">
-              <Group id="Surrogate.Group">
+              <Group id="PSAkit.Group">
                 <Label resid="Group.Label"/>
                 <Icon>
                   <bt:Image size="16" resid="Icon.16"/>
                   <bt:Image size="32" resid="Icon.32"/>
                   <bt:Image size="80" resid="Icon.80"/>
                 </Icon>
-                <Control xsi:type="Button" id="Surrogate.Open">
+                <Control xsi:type="Button" id="PSAkit.Open">
                   <Label resid="Button.Label"/>
                   <Supertip>
                     <Title resid="Button.Label"/>
@@ -76,7 +76,7 @@
                     <bt:Image size="80" resid="Icon.80"/>
                   </Icon>
                   <Action xsi:type="ShowTaskpane">
-                    <TaskpaneId>SurrogatePane</TaskpaneId>
+                    <TaskpaneId>PSAkitPane</TaskpaneId>
                     <SourceLocation resid="Taskpane.Url"/>
                   </Action>
                 </Control>
@@ -88,25 +88,25 @@
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16" DefaultValue="https://fikrurizal.github.io/surrogate/assets/icon-16.png"/>
-        <bt:Image id="Icon.32" DefaultValue="https://fikrurizal.github.io/surrogate/assets/icon-32.png"/>
-        <bt:Image id="Icon.80" DefaultValue="https://fikrurizal.github.io/surrogate/assets/icon-80.png"/>
+        <bt:Image id="Icon.16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
+        <bt:Image id="Icon.32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
+        <bt:Image id="Icon.80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Functions.Script.Url" DefaultValue="https://fikrurizal.github.io/surrogate/src/functions/functions.js"/>
-        <bt:Url id="Functions.Metadata.Url" DefaultValue="https://fikrurizal.github.io/surrogate/src/functions/functions.json"/>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://fikrurizal.github.io/surrogate/src/taskpane/taskpane.html"/>
-        <bt:Url id="GetStarted.LearnMore" DefaultValue="https://fikrurizal.github.io/surrogate/README.md"/>
+        <bt:Url id="Functions.Script.Url" DefaultValue="https://localhost:3000/src/functions/functions.js"/>
+        <bt:Url id="Functions.Metadata.Url" DefaultValue="https://localhost:3000/src/functions/functions.json"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/src/taskpane/taskpane.html"/>
+        <bt:Url id="GetStarted.LearnMore" DefaultValue="https://localhost:3000/README.md"/>
       </bt:Urls>
       <bt:ShortStrings>
-        <bt:String id="Functions.Namespace" DefaultValue="ER"/>
+        <bt:String id="Functions.Namespace" DefaultValue="PSA"/>
         <bt:String id="Group.Label" DefaultValue="Simulation"/>
-        <bt:String id="Button.Label" DefaultValue="Surrogate"/>
-        <bt:String id="GetStarted.Title" DefaultValue="Surrogate is ready"/>
+        <bt:String id="Button.Label" DefaultValue="PSAkit"/>
+        <bt:String id="GetStarted.Title" DefaultValue="PSAkit is ready"/>
       </bt:ShortStrings>
       <bt:LongStrings>
         <bt:String id="Button.Tip" DefaultValue="Open the simulation pane to run Monte Carlo models and view results."/>
-        <bt:String id="GetStarted.Description" DefaultValue="Open Surrogate from the Data tab. Type =ER. in a cell to see the functions."/>
+        <bt:String id="GetStarted.Description" DefaultValue="Open PSAkit from the Data tab. Type =PSA. in a cell to see the functions."/>
       </bt:LongStrings>
     </Resources>
   </VersionOverrides>

@@ -1,4 +1,4 @@
-// Points manifest.xml at a different host: node tools/set-host.js https://you.github.io/surrogate
+// Points manifest.xml at a different host: node tools/set-host.js https://you.github.io/psakit
 const fs = require('fs'), path = require('path');
 const base = (process.argv[2] || '').replace(/\/+$/, '');
 if (!/^https:\/\//.test(base)) { console.error('Usage: node tools/set-host.js https://your-host/path'); process.exit(1); }

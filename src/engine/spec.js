@@ -95,8 +95,16 @@
   add('Statistics', 'ErCorrelation', ['X:n', 'Y:n'], 'n', 'At the end of a run, the Pearson correlation of X and Y across its iterations.');
   add('Statistics', 'ErPercentile', ['inp:n', 'perc:n'], 'n', 'At the end of a run, percentile perc (0 to 100) of inp across its iterations.');
 
+  // Internal names (ErBeta) follow the Ersatz Function Overview, so the catalogue can be checked against it line by
+  // line. Users see PSAkit's own names instead: the namespace plus the name without "Er" (ErBeta -> PSA.BETA).
+  Sg.NAMESPACE = 'PSA';
+  const RENAME = { ErChi2: 'CHISQ' }; // CHI2 on its own reads as a cell reference (column CHI, row 2)
+  Sg.excelName = (name) => RENAME[name] || name.replace(/^Er/, '').toUpperCase();
   Sg.SPEC = S;
   Sg.SPEC_BY_NAME = Object.fromEntries(S.map((s) => [s.name, s]));
-  Sg.NAMESPACE = 'ER';
-  Sg.VERSION = '2.2.0';
+  Sg.SPEC_BY_EXCEL = new Map(S.map((s) => [Sg.excelName(s.name), s]));
+  // Rewrites internal names in text meant for people: "ErCorrNormal" -> "PSA.CORRNORMAL".
+  Sg.publicText = (text) => (typeof text === 'string' ? text.replace(/\bEr[A-Z][A-Za-z0-9]*\b/g, (m) => (Sg.SPEC_BY_NAME[m] ? `${Sg.NAMESPACE}.${Sg.excelName(m)}` : m)) : text);
+  for (const s of S) s.desc = Sg.publicText(s.desc);
+  Sg.VERSION = '0.1.0';
 })(globalThis.Sg = globalThis.Sg || {});
