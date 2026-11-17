@@ -47,9 +47,9 @@ exit /b 1
   <DefaultLocale>en-US</DefaultLocale>
   <DisplayName DefaultValue="PSAkit"/>
   <Description DefaultValue="Probabilistic sensitivity analysis and Monte Carlo simulation for Excel decision models. Implements the Ersatz function set from its public documentation; not affiliated with EpiGear."/>
-  <IconUrl DefaultValue="https://localhost:3000/assets/icon-32.png"/>
-  <HighResolutionIconUrl DefaultValue="https://localhost:3000/assets/icon-64.png"/>
-  <SupportUrl DefaultValue="https://localhost:3000/README.md"/>
+  <IconUrl DefaultValue="https://fikrurizal.github.io/psakit/assets/icon-32.png"/>
+  <HighResolutionIconUrl DefaultValue="https://fikrurizal.github.io/psakit/assets/icon-64.png"/>
+  <SupportUrl DefaultValue="https://fikrurizal.github.io/psakit/README.md"/>
   <AppDomains>
     <AppDomain>https://appsforoffice.microsoft.com</AppDomain>
   </AppDomains>
@@ -62,7 +62,7 @@ exit /b 1
     </Sets>
   </Requirements>
   <DefaultSettings>
-    <SourceLocation DefaultValue="https://localhost:3000/src/taskpane/taskpane.html"/>
+    <SourceLocation DefaultValue="https://fikrurizal.github.io/psakit/src/taskpane/taskpane.html"/>
   </DefaultSettings>
   <Permissions>ReadWriteDocument</Permissions>
   <VersionOverrides xmlns="http://schemas.microsoft.com/office/taskpaneappversionoverrides" xsi:type="VersionOverridesV1_0">
@@ -125,15 +125,15 @@ exit /b 1
     </Hosts>
     <Resources>
       <bt:Images>
-        <bt:Image id="Icon.16" DefaultValue="https://localhost:3000/assets/icon-16.png"/>
-        <bt:Image id="Icon.32" DefaultValue="https://localhost:3000/assets/icon-32.png"/>
-        <bt:Image id="Icon.80" DefaultValue="https://localhost:3000/assets/icon-80.png"/>
+        <bt:Image id="Icon.16" DefaultValue="https://fikrurizal.github.io/psakit/assets/icon-16.png"/>
+        <bt:Image id="Icon.32" DefaultValue="https://fikrurizal.github.io/psakit/assets/icon-32.png"/>
+        <bt:Image id="Icon.80" DefaultValue="https://fikrurizal.github.io/psakit/assets/icon-80.png"/>
       </bt:Images>
       <bt:Urls>
-        <bt:Url id="Functions.Script.Url" DefaultValue="https://localhost:3000/src/functions/functions.js"/>
-        <bt:Url id="Functions.Metadata.Url" DefaultValue="https://localhost:3000/src/functions/functions.json"/>
-        <bt:Url id="Taskpane.Url" DefaultValue="https://localhost:3000/src/taskpane/taskpane.html"/>
-        <bt:Url id="GetStarted.LearnMore" DefaultValue="https://localhost:3000/README.md"/>
+        <bt:Url id="Functions.Script.Url" DefaultValue="https://fikrurizal.github.io/psakit/src/functions/functions.js"/>
+        <bt:Url id="Functions.Metadata.Url" DefaultValue="https://fikrurizal.github.io/psakit/src/functions/functions.json"/>
+        <bt:Url id="Taskpane.Url" DefaultValue="https://fikrurizal.github.io/psakit/src/taskpane/taskpane.html"/>
+        <bt:Url id="GetStarted.LearnMore" DefaultValue="https://fikrurizal.github.io/psakit/README.md"/>
       </bt:Urls>
       <bt:ShortStrings>
         <bt:String id="Functions.Namespace" DefaultValue="PSA"/>

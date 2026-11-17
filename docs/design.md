@@ -95,7 +95,7 @@ Two independent tracks:
 
 ## 9. Where it lives
 
-Once it has a name, the project moves out of `misc` into its own folder (for example `C:\Users\friz0005\<name>`), with its own git history. The local git repository in `misc/surrogate` was created for the GitHub Pages attempt. It can be moved with the project or started fresh.
+The project lives in its own folder, `C:\Users\friz0005\psakit` (moved out of `misc` on 17 November 2026), and keeps the prototype's git history. The code is at https://github.com/fikrurizal/psakit and the add-in is served from GitHub Pages at https://fikrurizal.github.io/psakit.
 
 ## 10. Restructure checklist (after naming)
 
@@ -108,12 +108,12 @@ Once it has a name, the project moves out of `misc` into its own folder (for exa
 - [x] `docs/provenance.md`
 - [ ] `docs/spec.md`: one line per function with its source
 - [x] Update tests and benchmarks for the new names. Keep the Ersatz-comparison notes in the provenance doc, not in the product's own text
-- [ ] Move to the new project folder
+- [x] Move to the new project folder
 - [ ] Tell EpiGear once it runs well (owner, informally)
 
 ## 11. Open decisions
 
 1. Scope: confirm section 6. No preference given yet, so the recommendation stands.
-2. Whether to keep the prototype's git history or start a new repository.
-3. Licence, only if it is ever published.
-4. Moving the project out of `misc` into its own folder.
+2. Decided 17 November 2026: the prototype's git history is kept.
+3. Licence. The repository is public from 17 November 2026 with no licence (all rights reserved) until one is chosen.
+4. Done 17 November 2026: the project moved out of `misc` into its own folder.
